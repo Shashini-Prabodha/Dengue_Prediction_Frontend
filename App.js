@@ -6,11 +6,13 @@
 
 import React from 'react';
 import DemoScreen from './src/screens/DemoScreen';
+import RootRoute from './src/routes/RootRoute';
 
 const App = () => {
 
   return (
-    <DemoScreen/>
+    // <DemoScreen/>
+      <RootRoute/>
   );
 };
 
