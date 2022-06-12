@@ -71,7 +71,9 @@ const RootRoute = () => {
                             gestureDirection: 'horizontal',
                         })}
                     >
-                        <Stack.Screen name="HomeRoute" component={HomeRoute}/>
+                        {/*<Stack.Screen name="WelcomeScreen" component={WelcomeScreen}/>*/}
+                        <Stack.Screen name="LogInScreen" component={LogInScreen}/>
+                        {/*<Stack.Screen name="HomeRoute" component={HomeRoute}/>*/}
 
 
                     </Stack.Navigator>
