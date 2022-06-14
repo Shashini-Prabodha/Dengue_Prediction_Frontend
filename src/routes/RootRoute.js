@@ -8,6 +8,8 @@ import WelcomeScreen from '../screens/WelcomeScreen';
 import DemoScreen from '../screens/DemoScreen';
 import LogInScreen from '../screens/LogInScreen';
 import HomeRoute from './HomeRoute';
+import SignUpScreen from '../screens/SignUpScreen';
+import UserDataInputScreen from '../screens/UserDataInputScreen';
 
 //Create Stack ---------------------------------------------------------------------------------------------------------
 const Stack = createStackNavigator();
@@ -31,7 +33,7 @@ const RootRoute = () => {
 
         const timeout = setTimeout(() => {
             setIsLoading(false);
-        }, 2000);
+        }, 2500);
         return () => {
             clearTimeout(timeout);
         };
@@ -72,7 +74,8 @@ const RootRoute = () => {
                         })}
                     >
                         {/*<Stack.Screen name="WelcomeScreen" component={WelcomeScreen}/>*/}
-                        <Stack.Screen name="LogInScreen" component={LogInScreen}/>
+                        <Stack.Screen name="UserDataInputScreen" component={UserDataInputScreen}/>
+                        {/*<Stack.Screen name="LogInScreen" component={LogInScreen}/>*/}
                         {/*<Stack.Screen name="HomeRoute" component={HomeRoute}/>*/}
 
 

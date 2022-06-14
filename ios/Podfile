@@ -19,6 +19,10 @@ target 'Dengue_Prediction_Frontend' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
+  pod 'RNSVG', :path => '../node_modules/react-native-svg'
+
   target 'Dengue_Prediction_FrontendTests' do
     inherit! :complete
     # Pods for testing
