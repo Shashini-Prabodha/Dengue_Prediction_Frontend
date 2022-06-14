@@ -34,7 +34,7 @@ const HomeRoute = () => {
                         tabBarLabel: 'Home',
                         tabBarIcon: ({color}) => (
                             <Image
-                                source={require('../assets/icons/home.png')}
+                                source={require('../assets/icons/activity_history_50px.png')}
                                 resizeMode="contain"
                                 style={styles.menuIcons}
                             />
@@ -65,7 +65,7 @@ const HomeRoute = () => {
                         tabBarLabel: 'Report',
                         tabBarIcon: ({color}) => (
                             <Image
-                                source={require('../assets/icons/home.png')}
+                                source={require('../assets/icons/checklist_50px.png')}
                                 resizeMode="contain"
                                 style={styles.menuIcons}
                             />
