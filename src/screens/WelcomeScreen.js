@@ -17,10 +17,13 @@ const WelcomeScreen = () => {
                 {/*    color='#fa983a'*/}
                 {/*/>*/}
             </View>
+            <View style={styles.shape}>
+
+            </View>
             <Animatable.View animation="bounceIn" duration={4000}>
 
                 <Image
-                    source={require('../assets/icons/den.png')}
+                    source={require('../assets/icons/d1.png')}
                     resizeMode="contain"
                     style={styles.logo}>
                 </Image>
@@ -36,42 +39,42 @@ const WelcomeScreen = () => {
 
             </Animatable.View>
 
-            <View style={styles.bottom}>
-                <WavyBackground
-                                height={400}
-                                width={1300}
-                                amplitude={50}
-                                frequency={1}
-                                offset={180}
-                                color="#a41501"
-                />
+            {/*<View style={styles.bottom}>*/}
+            {/*    <WavyBackground*/}
+            {/*                    height={400}*/}
+            {/*                    width={1300}*/}
+            {/*                    amplitude={50}*/}
+            {/*                    frequency={1}*/}
+            {/*                    offset={180}*/}
+            {/*                    color="#a41501"*/}
+            {/*    />*/}
 
 
-            </View>
-            <View style={styles.bottom2}>
-                <WavyBackground
-                    height={400}
-                    width={1300}
-                    amplitude={50}
-                    frequency={1}
-                    offset={180}
-                    color="#feca57"
-                />
+            {/*</View>*/}
+            {/*<View style={styles.bottom2}>*/}
+            {/*    <WavyBackground*/}
+            {/*        height={400}*/}
+            {/*        width={1300}*/}
+            {/*        amplitude={50}*/}
+            {/*        frequency={1}*/}
+            {/*        offset={180}*/}
+            {/*        color="#feca57"*/}
+            {/*    />*/}
 
 
-            </View>
-            <View style={styles.bottom3}>
-                <WavyBackground
-                    height={400}
-                    width={1300}
-                    amplitude={50}
-                    frequency={1}
-                    offset={180}
-                    color="#ffeaa7"
-                />
+            {/*</View>*/}
+            {/*<View style={styles.bottom3}>*/}
+            {/*    <WavyBackground*/}
+            {/*        height={400}*/}
+            {/*        width={1300}*/}
+            {/*        amplitude={50}*/}
+            {/*        frequency={1}*/}
+            {/*        offset={180}*/}
+            {/*        color="#ffeaa7"*/}
+            {/*    />*/}
 
 
-            </View>
+            {/*</View>*/}
         </View>
     );
 };
@@ -121,10 +124,19 @@ const styles = StyleSheet.create({
     },
     logo: {
         // backgroundColor: '#a41501',
-        width: 280,
-        height: 280,
-      top:'-50%',
+        width: 200,
+        height: 200,
+      top:'-150%',
 
+    },
+    shape: {
+        backgroundColor: 'rgba(227,225,225,0.44)',
+        width: '100%',
+        height:'100%',
+        borderBottomEndRadius: 300,
+        borderBottomStartRadius:300,
+        marginTop:-220,
+        transform: [{ scaleX: 1.5 }],
     },
 });
 
