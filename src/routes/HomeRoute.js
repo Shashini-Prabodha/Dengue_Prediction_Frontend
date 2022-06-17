@@ -7,6 +7,7 @@ import {Image, StyleSheet} from "react-native";
 import HomeScreen from "../screens/HomeScreen";
 import ReportScreen from "../screens/ReportScreen";
 import DemoScreen from "../screens/DemoScreen";
+import ProfileScreen from "../screens/ProfileScreen";
 
 //Tab Navigator --------------------------------------------------------------------------------------------------------
 const Tab = createMaterialBottomTabNavigator();
@@ -17,10 +18,10 @@ const HomeRoute = () => {
 
             {/*Tab Screens ------------------------------------------------------------------------------------------*/}
             <Tab.Navigator
-                initialRouteName="DemoScreen"
+                initialRouteName="HomeScreen"
                 activeColor="#F52D54"
                 inactiveColor="#F52D54"
-                barStyle={[{backgroundColor: '#202020'}]}
+                barStyle={[{backgroundColor: '#181818'}]}
                 shifting="true"
                 screenOptions={() => ({
                     headerShown: false,
@@ -50,7 +51,7 @@ const HomeRoute = () => {
                         tabBarLabel: '',
                         tabBarIcon: ({color}) => (
                             <Image
-                                source={require('../assets/icons/home.png')}
+                                source={require('../assets/icons/activity_history_50px.png')}
                                 resizeMode="contain"
                                 style={styles.MenuLogo}
                             />
@@ -65,7 +66,7 @@ const HomeRoute = () => {
                         tabBarLabel: 'Report',
                         tabBarIcon: ({color}) => (
                             <Image
-                                source={require('../assets/icons/home.png')}
+                                source={require('../assets/icons/checklist_50px.png')}
                                 resizeMode="contain"
                                 style={styles.menuIcons}
                             />
@@ -74,7 +75,25 @@ const HomeRoute = () => {
                     name="ReportScreen"
                     component={ReportScreen}
                 />
+
+                <Tab.Screen
+                    options={{
+                        tabBarLabel: '',
+                        tabBarIcon: ({color}) => (
+                            <Image
+                                source={require('../assets/icons/profile.png')}
+                                resizeMode="contain"
+                                style={styles.MenuLogo}
+                            />
+                        ),
+                    }}
+                    name="ProfileScreen"
+                    component={ProfileScreen}
+                />
+
             </Tab.Navigator>
+
+
         </NavigationContainer>
     );
 }

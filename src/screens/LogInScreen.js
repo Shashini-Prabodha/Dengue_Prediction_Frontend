@@ -25,12 +25,12 @@ const LogInScreen = () => {
 
 
                 <View style={styles.topTitleView}>
-                    <Text style={styles.title}>Sign In</Text>
+                    <Text style={styles.title}>SIGN IN</Text>
                 </View>
 
                 <View style={styles.imgView}>
                     <Image
-                        source={require('../assets/icons/den.png')}
+                        source={require('../assets/icons/d1.png')}
                         resizeMode="contain"
                         style={styles.logo}>
                     </Image>
@@ -90,10 +90,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     title: {
-        color: '#ee5253',
+        color: '#000000',
         fontSize: 35,
-        // fontWeight: 'bold',
-        fontFamily:"Poppins-Black"
+        fontWeight: 'bold',
+        // fontFamily:"Poppins-Black"
     },
     imgView: {
         width: '100%',
