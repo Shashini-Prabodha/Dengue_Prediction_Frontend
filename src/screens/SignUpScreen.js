@@ -23,12 +23,12 @@ const SignUpScreen = () => {
                 <View style={styles.container}>
 
                     <View style={styles.topTitleView}>
-                        <Text style={styles.title}>Sign Up</Text>
+                        <Text style={styles.title}>SIGN UP</Text>
                     </View>
 
                     <View style={styles.imgView}>
                         <Image
-                            source={require('../assets/icons/den.png')}
+                            source={require('../assets/icons/d1.png')}
                             resizeMode="contain"
                             style={styles.logo}>
                         </Image>
@@ -102,8 +102,8 @@ const styles = StyleSheet.create({
     title: {
         color: '#ee5253',
         fontSize: 35,
-        // fontWeight: 'bold',
-        fontFamily:"Poppins-Black"
+        fontWeight: 'bold',
+        // fontFamily:"Poppins-Black"
     },
     imgView: {
         width: '100%',

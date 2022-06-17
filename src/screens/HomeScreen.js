@@ -3,25 +3,43 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {FlatGrid} from 'react-native-super-grid';
 import {ScrollView} from 'react-native-gesture-handler';
 import * as Animatable from 'react-native-animatable';
-
-const items = [
-    {name: 'TURQUOISE', code: '#1abc9c'},
-    {name: 'EMERALD', code: '#2ecc71'},
-    {name: 'PETER RIVER', code: '#3498db'},
-    {name: 'AMETHYST', code: '#9b59b6'},
-    {name: 'CARROT', code: '#e67e22'},
-    {name: 'ALIZARIN', code: '#e74c3c'},
-];
+import WavyBackground from 'react-native-wavy-background';
 
 const HomeScreen = () => {
     return (
 
 
         <Animatable.View style={styles.container} animation="fadeInRight">
+
+            <View style={styles.bottom}>
+                <WavyBackground
+                                height={400}
+                                width={1300}
+                                amplitude={50}
+                                frequency={1}
+                                offset={180}
+                                color='rgba(155,155,155,0.3)'
+                />
+            </View>
+            <View style={styles.bottom2}>
+                <WavyBackground
+                    height={400}
+                    width={1300}
+                    amplitude={50}
+                    frequency={1}
+                    offset={180}
+                    color='rgba(255,72,72,0.5)'
+                />
+            </View>
             <View style={styles.homeTopView}>
                 <View style={styles.homeTitleView}>
                     <Text style={styles.homeTitle}>DAILY UPDATES</Text>
                 </View>
+                <Image
+                    source={require('../assets/icons/d1.png')}
+                    resizeMode="contain"
+                    style={styles.logo}>
+                </Image>
             </View>
 
             {/*Home Content View ------------------------------------------------------------------------------------*/}
@@ -206,10 +224,11 @@ const styles = StyleSheet.create({
         // backgroundColor: '#f6a800',
         justifyContent: 'center',
         alignItems: 'center',
+        flexDirection: 'row'
 
     },
     homeTitleView: {
-        width: '90%',
+        width: '80%',
         height: '60%',
         justifyContent: 'center',
         alignItems: 'center',
@@ -320,7 +339,7 @@ const styles = StyleSheet.create({
         width: 50,
         height: 50,
         borderRadius: 100,
-        marginLeft: '5%',
+        marginLeft: '-12%',
         backgroundColor: 'rgba(96,96,96,0.58)',
         justifyContent: 'center',
         alignItems: 'center',
@@ -373,14 +392,14 @@ const styles = StyleSheet.create({
         // borderWidth:2,
         backgroundColor: '#ffffff',
         // backgroundColor: '#eb4d4b',
-        shadowColor: '#050505',
+        shadowColor: '#4b4b4b',
         shadowOffset: {
             width: 0,
             height: 3,
         },
-        shadowOpacity: 0.29,
+        shadowOpacity: 0.5,
         shadowRadius: 4.65,
-        elevation: 7,
+        elevation: 10,
 
     },
     //Card 2---------------------------
@@ -392,14 +411,14 @@ const styles = StyleSheet.create({
         // borderColor:'#7158e2',
         backgroundColor: '#ffffff',
         // backgroundColor: '#7158e2',
-        shadowColor: '#050505',
+        shadowColor: '#4b4b4b',
         shadowOffset: {
             width: 0,
             height: 3,
         },
-        shadowOpacity: 0.29,
+        shadowOpacity: 0.5,
         shadowRadius: 4.65,
-        elevation: 7,
+        elevation: 10,
     },
 
     //Card 3---------------------------
@@ -411,14 +430,14 @@ const styles = StyleSheet.create({
         // borderColor:'#ff9f1a',
         backgroundColor: '#ffffff',
         // backgroundColor: '#ff9f1a',
-        shadowColor: '#050505',
+        shadowColor: '#4b4b4b',
         shadowOffset: {
             width: 0,
             height: 3,
         },
-        shadowOpacity: 0.29,
+        shadowOpacity: 0.5,
         shadowRadius: 4.65,
-        elevation: 7,
+        elevation: 10,
     },
 
     //Card 4---------------------------
@@ -430,14 +449,14 @@ const styles = StyleSheet.create({
         // borderColor:'#17c0eb',
         backgroundColor: '#ffffff',
         // backgroundColor: '#17c0eb',
-        shadowColor: '#050505',
+        shadowColor: '#4b4b4b',
         shadowOffset: {
             width: 0,
             height: 3,
         },
-        shadowOpacity: 0.29,
+        shadowOpacity: 0.5,
         shadowRadius: 4.65,
-        elevation: 7,
+        elevation: 10,
     },
 
     //Card 5---------------------------
@@ -463,7 +482,7 @@ const styles = StyleSheet.create({
         width: '48%',
         height: '100%',
         borderRadius: 27,
-        backgroundColor: '#2ed573',
+        // backgroundColor: '#2ed573',
     },
 
     //Home Content End -------------------------------------------------------------
@@ -473,5 +492,33 @@ const styles = StyleSheet.create({
         width: '100%',
         // height: '10%',
         backgroundColor: 'green',
+    },
+    logo:{
+        width:55,
+        height:55,
+        shadowColor: '#050505',
+        shadowOffset: {
+            width: 0,
+            height: 3,
+        },
+        shadowOpacity: 0.29,
+        shadowRadius: 4.65,
+        elevation: 7,
+    },
+    bottom: {
+        width: '100%',
+        height: '8%',
+        bottom:-55,
+        rotation:180,
+        position:'absolute',
+        zIndex:1,
+    },
+    bottom2: {
+        width: '100%',
+        height: '5%',
+        bottom:-80,
+        rotation:180,
+        position:'absolute',
+        zIndex:2,
     },
 });

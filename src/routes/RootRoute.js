@@ -77,6 +77,7 @@ const RootRoute = () => {
                         {/*<Stack.Screen name="WelcomeScreen" component={WelcomeScreen}/>*/}
                         {/*<Stack.Screen name="UserDataInputScreen" component={UserDataInputScreen}/>*/}
                         {/*<Stack.Screen name="LogInScreen" component={LogInScreen}/>*/}
+                        {/*<Stack.Screen name="SignUpScreen" component={SignUpScreen}/>*/}
                         <Stack.Screen name="HomeRoute" component={HomeRoute}/>
 
 

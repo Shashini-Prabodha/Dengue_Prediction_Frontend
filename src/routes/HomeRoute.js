@@ -21,7 +21,7 @@ const HomeRoute = () => {
                 initialRouteName="HomeScreen"
                 activeColor="#F52D54"
                 inactiveColor="#F52D54"
-                barStyle={[{backgroundColor: '#2d0404'}]}
+                barStyle={[{backgroundColor: '#181818'}]}
                 shifting="true"
                 screenOptions={() => ({
                     headerShown: false,
