@@ -32,6 +32,7 @@
     "react-native-safe-area-context": "^3.3.2",
     "react-native-super-grid": "^4.4.0",
     "react-native-svg": "^12.3.0",
+    "react-native-unordered-list": "^1.0.4",
     "react-native-vector-icons": "^9.1.0",
     "react-native-wavy-background": "^0.2.0",
     "react-wavify": "^1.5.7"

@@ -6,7 +6,7 @@ import {Image, StyleSheet} from "react-native";
 //Import Screens -------------------------------------------------------------------------------------------------------
 import HomeScreen from "../screens/HomeScreen";
 import ReportScreen from "../screens/ReportScreen";
-import DemoScreen from "../screens/DemoScreen";
+import InformationScreen from "../screens/InformationScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 
 //Tab Navigator --------------------------------------------------------------------------------------------------------
@@ -57,8 +57,8 @@ const HomeRoute = () => {
                             />
                         ),
                     }}
-                    name="DemoScreen"
-                    component={DemoScreen}
+                    name="InformationScreen"
+                    component={InformationScreen}
                 />
 
                 <Tab.Screen
