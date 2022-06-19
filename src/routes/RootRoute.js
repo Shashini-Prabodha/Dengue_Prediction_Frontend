@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //Screens --------------------------------------------------------------------------------------------------------------
 import WelcomeScreen from '../screens/WelcomeScreen';
-import DemoScreen from '../screens/DemoScreen';
+import DemoScreen from '../screens/InformationScreen';
 import LogInScreen from '../screens/LogInScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import HomeRoute from './HomeRoute';

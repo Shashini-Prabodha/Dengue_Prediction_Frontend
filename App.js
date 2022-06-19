@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import DemoScreen from './src/screens/DemoScreen';
+import DemoScreen from './src/screens/InformationScreen';
 import RootRoute from './src/routes/RootRoute';
 
 const App = () => {
