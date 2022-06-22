@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{ useState } from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import WavyBackground from 'react-native-wavy-background';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -10,6 +10,10 @@ const ToDoScreen = () => {
         labels: ['Done'], // optional
         data: [0.7],
     };
+
+    const [setColor] = useState(0);
+    const onPress = () => setColor(styles.task.backgroundColor='red');
+
     const chartConfig = {
         backgroundGradientFromOpacity: 0,
         backgroundGradientTo: '#f1f1f1',
@@ -80,7 +84,8 @@ const ToDoScreen = () => {
 
                                 {/*Left Side Button -----------------------------------------------------------------*/}
                                 <View style={styles.taskButtonViewSide}>
-                                    <TouchableOpacity style={styles.btnDone}>
+                                    <TouchableOpacity style={styles.btnDone} onPress={onPress
+                                    }>
                                         <TouchableOpacity style={styles.btnDoneCircle}>
                                             <Image
                                                 source={require('../assets/icons/Done_127px.png')}
@@ -397,7 +402,7 @@ const ToDoScreen = () => {
                                 {/*Left Side Button -----------------------------------------------------------------*/}
                                 <View style={styles.taskButtonViewSide}>
                                     <TouchableOpacity style={styles.btnDone}>
-                                        <TouchableOpacity style={styles.btnDoneCircle}>
+                                        <TouchableOpacity style={styles.btnDoneCircle} >
                                             <Image
                                                 source={require('../assets/icons/Done_127px.png')}
                                                 resizeMode="contain"

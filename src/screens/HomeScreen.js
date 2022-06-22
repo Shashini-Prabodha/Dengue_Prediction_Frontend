@@ -4,12 +4,13 @@ import {FlatGrid} from 'react-native-super-grid';
 import {ScrollView} from 'react-native-gesture-handler';
 import * as Animatable from 'react-native-animatable';
 import WavyBackground from 'react-native-wavy-background';
+import LottieView from 'lottie-react-native';
 
 const HomeScreen = () => {
     return (
 
 
-        <Animatable.View style={styles.container} animation="fadeInRight">
+        <Animatable.View style={styles.container} animation="fadeInRight" >
 
             <View style={styles.bottom}>
                 <WavyBackground
@@ -56,11 +57,23 @@ const HomeScreen = () => {
 
                                 <View style={styles.zoneCircleView}>
                                     <View style={styles.zoneCircle}>
-                                        <Image
-                                            source={require('../assets/icons/zone.png')}
-                                            resizeMode="contain"
-                                            style={styles.homeCol0Logo}>
-                                        </Image>
+                                        {/*<Image*/}
+                                        {/*    source={require('../assets/icons/zone.png')}*/}
+                                        {/*    resizeMode="contain"*/}
+                                        {/*    style={styles.homeCol0Logo}>*/}
+                                        {/*</Image>*/}
+                                        <LottieView style={styles.icon}
+                                                    source={require('../assets/icons/rd2.json')}
+                                                    colorFilters={[{
+                                                        keypath: "button",
+                                                        color: "#F00000"
+                                                    }, {
+                                                        keypath: "Sending Loader",
+                                                        color: "#F00000"
+                                                    }]}
+                                                    autoPlay
+                                                    loop
+                                        />
                                     </View>
                                 </View>
                             </View>
@@ -287,7 +300,7 @@ const styles = StyleSheet.create({
         height: 75,
         borderRadius: 100,
         // margin:40,
-        backgroundColor: 'rgba(255,255,255,0.37)',
+        backgroundColor: 'rgba(215,215,215,0.37)',
         justifyContent: 'center',
         alignItems: 'center',
 

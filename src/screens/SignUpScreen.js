@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{useEffect,useState}from 'react';
 import {
     Dimensions,
     Image,
@@ -15,6 +15,19 @@ const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 const SignUpScreen = () => {
     console.disableYellowBox = true;
+    const [data, setUser] = useState([]);
+    useEffect(()=>{
+        fetch('http://localhost:5000/articles',{
+            'methods':'GET',
+            headers : {
+                'Content-Type':'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(response => setUser(response))
+            .catch(error => console.log(error))
+
+    },[])
 
     return (
         <KeyboardAwareScrollView style={{height: SCREEN_HEIGHT}}>
