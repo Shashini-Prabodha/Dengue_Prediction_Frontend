@@ -40,7 +40,7 @@ const UserDataInputScreen = () => {
         try {
             console.log('in ' + district+" * "+name);
             await AsyncStorage.setItem('name', name);
-            await AsyncStorage.setItem('district', value);
+            await AsyncStorage.setItem('district', district);
             navigateHome()
         } catch (e) {
 

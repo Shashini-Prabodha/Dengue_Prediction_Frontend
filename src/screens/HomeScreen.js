@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {FlatGrid} from 'react-native-super-grid';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -8,32 +8,32 @@ import LottieView from 'lottie-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HomeScreen = () => {
-    const getData  = async () => {
+    const [email, setEmail] = useState();
+    const [name, setName] = useState();
+    const [district, setDistrict] = useState();
+
+    const getData = async () => {
         try {
             console.log("####")
 
             const email = await AsyncStorage.getItem('email');
-            const password = await AsyncStorage.getItem('password');
-            console.log("####" + email + " " + password)
+            const name = await AsyncStorage.getItem('name');
+            const district = await AsyncStorage.getItem('district');
+            setName(name)
+            setDistrict(district)
+            setEmail(email)
 
-            if (email !== null && password !== null) {
-                console.log("Value is" + email + " " + password)
-                if (email == this.state.email && password == this.state.password) {
-                    this.props.navigation.replace('Navigation');
+            console.log("####" + email + " " + district)
 
-                } else {
-                    Alert.alert("Incorrect Email or password..! Please check or sign up")
-                }
-                // value previously stored
-            } else {
-                Alert.alert("Incorrect Email or password..! Please check or sign up")
-
-
-            }
         } catch (e) {
             // error reading value
         }
     }
+
+    useEffect(() => {
+        getData();
+    }, []);
+
     return (
 
 
@@ -137,7 +137,7 @@ const HomeScreen = () => {
                             </View>
 
                             <View style={styles.homeColMid}>
-                                <Text style={styles.homeColMidTxt}>Polonnaruwa</Text>
+                                <Text style={styles.homeColMidTxt}>{district}</Text>
                             </View>
 
                             <View style={styles.homeCol0Bottom}>
