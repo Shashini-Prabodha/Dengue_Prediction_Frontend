@@ -5,8 +5,35 @@ import {ScrollView} from 'react-native-gesture-handler';
 import * as Animatable from 'react-native-animatable';
 import WavyBackground from 'react-native-wavy-background';
 import LottieView from 'lottie-react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HomeScreen = () => {
+    const getData  = async () => {
+        try {
+            console.log("####")
+
+            const email = await AsyncStorage.getItem('email');
+            const password = await AsyncStorage.getItem('password');
+            console.log("####" + email + " " + password)
+
+            if (email !== null && password !== null) {
+                console.log("Value is" + email + " " + password)
+                if (email == this.state.email && password == this.state.password) {
+                    this.props.navigation.replace('Navigation');
+
+                } else {
+                    Alert.alert("Incorrect Email or password..! Please check or sign up")
+                }
+                // value previously stored
+            } else {
+                Alert.alert("Incorrect Email or password..! Please check or sign up")
+
+
+            }
+        } catch (e) {
+            // error reading value
+        }
+    }
     return (
 
 

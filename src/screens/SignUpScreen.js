@@ -1,5 +1,6 @@
-import React ,{useEffect,useState}from 'react';
+import React, {useEffect, useState} from 'react';
 import {
+    Alert, Button,
     Dimensions,
     Image,
     StyleSheet,
@@ -7,94 +8,168 @@ import {
     TextInput,
     TouchableOpacity,
     View,
+    SafeAreaView,
 } from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {ALERT_TYPE, Dialog, Root, Toast} from 'react-native-alert-notification';
+import {useNavigation} from '@react-navigation/native';
+import * as Animatable from 'react-native-animatable';
+
 
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 
 const SignUpScreen = () => {
-    console.disableYellowBox = true;
-    const [data, setUser] = useState([]);
-    useEffect(()=>{
-        fetch('http://localhost:5000/articles',{
-            'methods':'GET',
-            headers : {
-                'Content-Type':'application/json'
-            }
-        })
-            .then(response => response.json())
-            .then(response => setUser(response))
-            .catch(error => console.log(error))
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+    const [cpassword, setCPassword] = useState();
 
-    },[])
+    const useNavigate = useNavigation();
+
+    const navigateAgent = () => {
+        useNavigate.navigate('UserDataInputScreen');
+    };
+
+    const navigateLogIn = () => {
+        useNavigate.navigate('LogInScreen');
+    };
+    const signup = async () => {
+
+        console.log('press**********');
+        try {
+            if (email && password && cpassword) {
+                // if (this.getData.bind(this)) {
+                if (email !== null && password !== null) {
+
+                    await AsyncStorage.setItem('email', email);
+                    await AsyncStorage.setItem('password', password);
+
+                    console.log('11' + email + ' ' + password);
+                    console.log('press');
+
+                } else {
+                    Dialog.show({
+                        type: ALERT_TYPE.DANGER,
+                        title: 'Something wrong!',
+                        textBody: 'Incorrect Email or password..! Please check or sign up',
+                        button: 'Close',
+                    });
+                    // Alert.alert('Incorrect Email or password..! Please check or sign up');
+                }
+                Dialog.show({
+                    type: ALERT_TYPE.SUCCESS,
+                    title: 'Success!',
+                    textBody: 'Sign Up Success...!',
+                    button: 'Close',
+                });
+                navigateAgent();
+
+                // Alert.alert('Data Saved !');
+                //
+            } else {
+                // Alert.alert("Please input Email or Password ")
+                Dialog.show({
+                    type: ALERT_TYPE.DANGER,
+                    title: 'Something wrong!',
+                    textBody: 'Please Input Email or Password',
+                    button: 'Close',
+                });
+
+            }
+
+
+        } catch (e) {
+            // saving error
+        }
+    };
 
     return (
-        <KeyboardAwareScrollView style={{height: SCREEN_HEIGHT}}>
-            <View style={{height: SCREEN_HEIGHT}}>
+            <KeyboardAwareScrollView style={{height: SCREEN_HEIGHT}}>
+                <Animatable.View  animation="fadeInLeft">
 
-                <View style={styles.container}>
+                <Root>
+                    <SafeAreaView>
+                        <View style={{height: SCREEN_HEIGHT}}>
 
-                    <View style={styles.topTitleView}>
-                        <Text style={styles.title}>SIGN UP</Text>
-                    </View>
+                            <View style={styles.container}>
 
-                    <View style={styles.imgView}>
-                        <Image
-                            source={require('../assets/icons/d1.png')}
-                            resizeMode="contain"
-                            style={styles.logo}>
-                        </Image>
-                    </View>
+                                <View style={styles.topTitleView}>
+                                    <Text style={styles.title}>SIGN UP</Text>
+                                </View>
+                                <View style={styles.imgView}>
+                                    <Animatable.View  animation="bounceIn" duration={4000}>
+                                    <Image
+                                        source={require('../assets/icons/d1.png')}
+                                        resizeMode="contain"
+                                        style={styles.logo}>
+                                    </Image>
+                                    </Animatable.View>
+                                </View>
+                                <View style={styles.loginDetailsView}>
 
-                    <View style={styles.loginDetailsView}>
+                                    <View style={styles.emailView}>
+                                        <TextInput style={styles.txtField}
+                                                   placeholder="Email Address"
+                                                   placeholderTextColor="#ee5253"
+                                            // value={valuData}
+                                                   onChangeText={e => setEmail(e)}
 
-                        <View style={styles.emailView}>
-                            <TextInput style={styles.txtField}
-                                       placeholder="Email Address"
-                                       placeholderTextColor="#ee5253"
-                                // value={valuData}
-                                //        onChangeText={onChangeData}
-                                //        secureTextEntry={secureText}
-                            >
-                            </TextInput>
+                                        >
+                                        </TextInput>
+                                    </View>
+
+                                    <View style={styles.passwordView}>
+                                        <TextInput style={styles.txtPassword}
+                                                   placeholder="Password"
+                                                   placeholderTextColor="#ee5253"
+                                            // value={valuData}
+                                                   onChangeText={e => setPassword(e)}
+                                                   secureTextEntry={true}
+                                        >
+                                        </TextInput>
+                                    </View>
+
+                                    <View style={styles.passwordView}>
+                                        <TextInput style={styles.txtPassword}
+                                                   placeholder="Confirm Password"
+                                                   placeholderTextColor="#ee5253"
+                                            // value={valuData}
+                                                   onChangeText={e => setCPassword(e)}
+                                                   secureTextEntry={true}
+                                        >
+                                        </TextInput>
+                                    </View>
+
+
+                                    <View style={styles.btnView}>
+                                        <TouchableOpacity style={styles.btnSignUp} mode="contained" onPress={signup}>
+                                            <Text style={styles.btnSignUpTxt}>Sign Up</Text>
+                                        </TouchableOpacity>
+
+                                        <View style={styles.loginView}>
+                                            <View>
+                                                <Text>
+                                                    Already have an account?
+                                                </Text>
+                                            </View>
+
+                                            <TouchableOpacity style={styles.btnLogin} onPress={() => navigateLogIn()}>
+                                                <Text style={styles.btnLoginTxt}>Sign In</Text>
+                                            </TouchableOpacity>
+
+                                        </View>
+                                    </View>
+
+
+                                </View>
+                            </View>
                         </View>
+                    </SafeAreaView>
+                </Root>
+                </Animatable.View>
 
-                        <View style={styles.passwordView}>
-                            <TextInput style={styles.txtPassword}
-                                       placeholder="Password"
-                                       placeholderTextColor="#ee5253"
-                                // value={valuData}
-                                //        onChangeText={onChangeData}
-                                       secureTextEntry={true}
-                            >
-                            </TextInput>
-                        </View>
-
-                        <View style={styles.passwordView}>
-                            <TextInput style={styles.txtPassword}
-                                       placeholder="Confirm Password"
-                                       placeholderTextColor="#ee5253"
-                                // value={valuData}
-                                //        onChangeText={onChangeData}
-                                       secureTextEntry={true}
-                            >
-                            </TextInput>
-                        </View>
-
-
-                        <View style={styles.btnView}>
-                            <TouchableOpacity style={styles.btnSignUp} mode="contained">
-                                <Text style={styles.btnSignUpTxt}>Sign Up</Text>
-                            </TouchableOpacity>
-                        </View>
-
-
-                    </View>
-                </View>
-            </View>
-
-        </KeyboardAwareScrollView>
+            </KeyboardAwareScrollView>
     );
 };
 
@@ -102,15 +177,16 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'white',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems: 'center',
     },
 
     topTitleView: {
         width: '100%',
-        height: '12%',
+        height: '18%',
         justifyContent: 'center',
         alignItems: 'center',
+        // backgroundColor:'green'
     },
     title: {
         color: '#ee5253',
@@ -123,6 +199,8 @@ const styles = StyleSheet.create({
         height: '25%',
         justifyContent: 'center',
         alignItems: 'center',
+        // backgroundColor:'purple'
+
     },
     logo: {
         width: 200,
@@ -134,6 +212,7 @@ const styles = StyleSheet.create({
         height: '40%',
         justifyContent: 'center',
         alignItems: 'center',
+        // backgroundColor:'black'
     },
 
     emailView: {
@@ -148,7 +227,6 @@ const styles = StyleSheet.create({
         borderWidth: 1.5,
         borderRadius: 40,
         color: '#ee5253',
-        backgroundColor: 'rgba(255,255,255,0)',
         paddingVertical: 10,
         paddingHorizontal: 10,
         fontSize: 17,
@@ -178,6 +256,7 @@ const styles = StyleSheet.create({
         width: '80%',
         height: 50,
         marginTop: '5%',
+        alignItems: 'center',
     },
     btnSignUp: {
         width: '100%',
@@ -191,8 +270,23 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: '#ffffff',
     },
+    loginView: {
+        flexDirection: 'row',
+        margin: '2%',
+        width: '80%',
+        height: '50%',
+        // backgroundColor:'yellow',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    btnLogin: {},
+    btnLoginTxt: {
+        fontSize: 15,
+        color: '#ee5253',
+        fontWeight: 'bold',
+        marginLeft: '10%',
+    },
 });
-
 
 
 export default SignUpScreen;

@@ -6,11 +6,12 @@ import * as Animatable from 'react-native-animatable';
 
 //Screens --------------------------------------------------------------------------------------------------------------
 import WelcomeScreen from '../screens/WelcomeScreen';
-import DemoScreen from '../screens/InformationScreen';
+import InformationScreen from '../screens/InformationScreen';
 import LogInScreen from '../screens/LogInScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import HomeRoute from './HomeRoute';
 import SignUpScreen from '../screens/SignUpScreen';
+import HomeScreen from '../screens/HomeScreen';
 import UserDataInputScreen from '../screens/UserDataInputScreen';
 
 //Create Stack ---------------------------------------------------------------------------------------------------------
@@ -76,10 +77,12 @@ const RootRoute = () => {
                         })}
                     >
                         {/*<Stack.Screen name="WelcomeScreen" component={WelcomeScreen}/>*/}
-                        {/*<Stack.Screen name="UserDataInputScreen" component={UserDataInputScreen}/>*/}
-                        {/*<Stack.Screen name="LogInScreen" component={LogInScreen}/>*/}
-                        {/*<Stack.Screen name="SignUpScreen" component={SignUpScreen}/>*/}
+                        <Stack.Screen name="SignUpScreen" component={SignUpScreen}/>
+                        <Stack.Screen name="LogInScreen" component={LogInScreen}/>
+                        <Stack.Screen name="UserDataInputScreen" component={UserDataInputScreen}/>
                         <Stack.Screen name="HomeRoute" component={HomeRoute}/>
+
+                        <Stack.Screen name="HomeScreen" component={HomeScreen}/>
 
 
                     </Stack.Navigator>
