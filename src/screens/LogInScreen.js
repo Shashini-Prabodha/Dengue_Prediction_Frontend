@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
     Dimensions,
     Image,
@@ -11,18 +11,75 @@ import {
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useNavigation} from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {ALERT_TYPE, Dialog} from 'react-native-alert-notification';
 
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 
 const LogInScreen = () => {
     // console.disableYellowBox = true;
+
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+
     const useNavigate = useNavigation();
 
+    const navigateAgent = () => {
+        useNavigate.navigate('HomeScreen');
+    };
     const navigateSignUp = () => {
         useNavigate.navigate('SignUpScreen');
     };
+    const signIn = async () => {
 
+        console.log('press**********');
+        try {
+            if (email && password) {
+                // if (this.getData.bind(this)) {
+                if (email !== null && password !== null) {
+
+                    await AsyncStorage.setItem('email', email);
+                    await AsyncStorage.setItem('password', password);
+
+                    console.log('11' + email + ' ' + password);
+                    console.log('press');
+
+                } else {
+                    Dialog.show({
+                        type: ALERT_TYPE.DANGER,
+                        title: 'Something wrong!',
+                        textBody: 'Incorrect Email or password..! Please check or sign up',
+                        button: 'Close',
+                    });
+                    // Alert.alert('Incorrect Email or password..! Please check or sign up');
+                }
+                Dialog.show({
+                    type: ALERT_TYPE.SUCCESS,
+                    title: 'Success!',
+                    textBody: 'Login Success...!',
+                    button: 'Close',
+                });
+                navigateAgent();
+
+                // Alert.alert('Data Saved !');
+                //
+            } else {
+                // Alert.alert("Please input Email or Password ")
+                Dialog.show({
+                    type: ALERT_TYPE.DANGER,
+                    title: 'Something wrong!',
+                    textBody: 'Please Input Email or Password',
+                    button: 'Close',
+                });
+
+            }
+
+
+        } catch (e) {
+            // saving error
+        }
+    };
     return (
 
         <KeyboardAwareScrollView style={[{height: SCREEN_HEIGHT}]}>
@@ -54,7 +111,7 @@ const LogInScreen = () => {
                                            placeholder="Email Address"
                                            placeholderTextColor="#ee5253"
                                     // value={valuData}
-                                    //        onChangeText={onChangeData}
+                                           onChangeText={e => setEmail(e)}
                                     //        secureTextEntry={secureText}
                                 >
                                 </TextInput>
@@ -65,18 +122,19 @@ const LogInScreen = () => {
                                            placeholder="Password"
                                            placeholderTextColor="#ee5253"
                                     // value={valuData}
-                                    //        onChangeText={onChangeData}
+                                           onChangeText={e => setPassword(e)}
                                            secureTextEntry={true}
                                 >
                                 </TextInput>
                             </View>
 
                             <View style={styles.btnView}>
-                                <TouchableOpacity style={styles.btnSignIn} mode="contained">
+                                <TouchableOpacity style={styles.btnSignIn} mode="contained" onPress={() => signIn()}>
                                     <Text style={styles.btnSignInTxt}>Sign In</Text>
                                 </TouchableOpacity>
 
                                 <View style={styles.loginView}>
+
                                     <View>
                                         <Text>
                                             Don't have an account?
