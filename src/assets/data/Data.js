@@ -1,5 +1,4 @@
 const data = [
-
     {label: 'Colombo', value: '1'},
     {label: 'Gampaha', value: '2'},
     {label: 'Kalutara', value: '3'},

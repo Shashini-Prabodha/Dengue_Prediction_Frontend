@@ -13,16 +13,43 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Dropdown} from 'react-native-element-dropdown';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import data from '../assets/data/Data.js'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation} from '@react-navigation/native';
+
 
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 
 
 const UserDataInputScreen = () => {
-    console.disableYellowBox = true;
+    // console.disableYellowBox = true;
+    const useNavigate = useNavigation();
+
+    const navigateHome = () => {
+        useNavigate.navigate('HomeRoute');
+    };
 
     const [value, setValue] = useState(null);
     const [isFocus, setIsFocus] = useState(false);
+
+    const [name, setName] = useState();
+    const [district, setDistrict] = useState(null);
+    const [dno, setDno] = useState();
+
+
+
+    const storeData = async () => {
+        try {
+            console.log('in ' + district+" * "+name);
+            await AsyncStorage.setItem('name', name);
+            await AsyncStorage.setItem('district', district);
+            await AsyncStorage.setItem('dno', value);
+            navigateHome()
+        } catch (e) {
+
+        }
+
+    };
 
     return (
         <KeyboardAwareScrollView style={[{height: SCREEN_HEIGHT}]}>
@@ -37,7 +64,7 @@ const UserDataInputScreen = () => {
                     <View style={styles.loginDetailsView}>
 
                         <View style={styles.nameTitleView}>
-                            <TextInput style={styles.label1}> Your Name</TextInput>
+                            <Text style={styles.label1}> Your Name</Text>
                         </View>
 
                         <View style={styles.nameView}>
@@ -46,7 +73,7 @@ const UserDataInputScreen = () => {
                             <TextInput style={styles.txtField}
                                        placeholderTextColor="#ee5253"
                                 // value={valuData}
-                                //        onChangeText={onChangeData}
+                                       onChangeText={e => setName(e)}
                                 //        secureTextEntry={secureText}
                             >
                             </TextInput>
@@ -74,6 +101,7 @@ const UserDataInputScreen = () => {
                                 onBlur={() => setIsFocus(false)}
                                 onChange={item => {
                                     setValue(item.value);
+                                    setDistrict(item.label)
                                     setIsFocus(false);
                                 }}
                                 // renderLeftIcon={() => (
@@ -88,7 +116,7 @@ const UserDataInputScreen = () => {
                         </View>
 
                         <View style={styles.btnView}>
-                            <TouchableOpacity style={styles.go} mode="contained">
+                            <TouchableOpacity style={styles.go} mode="contained" onPress={storeData}>
                                 <Text style={styles.goTxt}>Go</Text>
                             </TouchableOpacity>
                         </View>
@@ -131,8 +159,8 @@ const styles = StyleSheet.create({
     title: {
         color: '#ee5253',
         fontSize: 35,
-        // fontWeight: 'bold',
-        fontFamily: 'Poppins-Black',
+        fontWeight: 'bold',
+        // fontFamily: 'Poppins-Black',
     },
     nameTitleView:{
       width:'80%',
@@ -143,7 +171,7 @@ const styles = StyleSheet.create({
     label1: {
         fontSize: 14,
         color:'grey',
-        marginTop:'-8%'
+        marginTop:'-2%'
     },
     nameTitleView2:{
         width:'80%',

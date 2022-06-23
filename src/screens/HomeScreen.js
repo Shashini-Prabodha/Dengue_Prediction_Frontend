@@ -1,15 +1,55 @@
-import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React,{useEffect,useState} from 'react';
+import {Image, RefreshControl, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {FlatGrid} from 'react-native-super-grid';
 import {ScrollView} from 'react-native-gesture-handler';
 import * as Animatable from 'react-native-animatable';
 import WavyBackground from 'react-native-wavy-background';
+import LottieView from 'lottie-react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+}
 
 const HomeScreen = () => {
+    const [email, setEmail] = useState();
+    const [name, setName] = useState();
+    const [district, setDistrict] = useState();
+    const [refreshing, setRefreshing] = React.useState(false);
+
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        getData()
+        wait(1000).then(() => setRefreshing(false));
+    }, []);
+
+
+    const getData = async () => {
+        try {
+            console.log("####")
+
+            const email = await AsyncStorage.getItem('email');
+            const name = await AsyncStorage.getItem('name');
+            const district = await AsyncStorage.getItem('district');
+            setName(name)
+            setDistrict(district)
+            setEmail(email)
+
+            console.log("####" + email + " " + district)
+
+        } catch (e) {
+            // error reading value
+        }
+    }
+
+    useEffect(() => {
+        getData();
+    }, []);
+
     return (
 
 
-        <Animatable.View style={styles.container} animation="fadeInRight">
+        <Animatable.View style={styles.container} animation="fadeInRight" >
 
             <View style={styles.bottom}>
                 <WavyBackground
@@ -44,7 +84,12 @@ const HomeScreen = () => {
 
             {/*Home Content View ------------------------------------------------------------------------------------*/}
             <View style={styles.homeContentView}>
-                <ScrollView horizontal={false} showsVerticalScrollIndicator={false}>
+                <ScrollView horizontal={false} showsVerticalScrollIndicator={false}  refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={onRefresh}
+                    />
+                }>
                     <Animatable.View style={styles.ZoneCardView} >
                         <TouchableOpacity style={styles.ZoneCard}>
 
@@ -56,11 +101,23 @@ const HomeScreen = () => {
 
                                 <View style={styles.zoneCircleView}>
                                     <View style={styles.zoneCircle}>
-                                        <Image
-                                            source={require('../assets/icons/zone.png')}
-                                            resizeMode="contain"
-                                            style={styles.homeCol0Logo}>
-                                        </Image>
+                                        {/*<Image*/}
+                                        {/*    source={require('../assets/icons/zone.png')}*/}
+                                        {/*    resizeMode="contain"*/}
+                                        {/*    style={styles.homeCol0Logo}>*/}
+                                        {/*</Image>*/}
+                                        <LottieView style={styles.icon}
+                                                    source={require('../assets/icons/rd2.json')}
+                                                    colorFilters={[{
+                                                        keypath: "button",
+                                                        color: "#F00000"
+                                                    }, {
+                                                        keypath: "Sending Loader",
+                                                        color: "#F00000"
+                                                    }]}
+                                                    autoPlay
+                                                    loop
+                                        />
                                     </View>
                                 </View>
                             </View>
@@ -97,7 +154,7 @@ const HomeScreen = () => {
                             </View>
 
                             <View style={styles.homeColMid}>
-                                <Text style={styles.homeColMidTxt}>Polonnaruwa</Text>
+                                <Text style={styles.homeColMidTxt}>{district}</Text>
                             </View>
 
                             <View style={styles.homeCol0Bottom}>
@@ -287,7 +344,7 @@ const styles = StyleSheet.create({
         height: 75,
         borderRadius: 100,
         // margin:40,
-        backgroundColor: 'rgba(255,255,255,0.37)',
+        backgroundColor: 'rgba(215,215,215,0.37)',
         justifyContent: 'center',
         alignItems: 'center',
 

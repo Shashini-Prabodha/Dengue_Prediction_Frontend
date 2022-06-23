@@ -5,7 +5,7 @@ import {Image, StyleSheet} from "react-native";
 
 //Import Screens -------------------------------------------------------------------------------------------------------
 import HomeScreen from "../screens/HomeScreen";
-import ReportScreen from "../screens/ReportScreen";
+import ToDoScreen from "../screens/ToDoScreen";
 import InformationScreen from "../screens/InformationScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 
@@ -13,6 +13,8 @@ import ProfileScreen from "../screens/ProfileScreen";
 const Tab = createMaterialBottomTabNavigator();
 
 const HomeRoute = () => {
+
+
     return (
         <NavigationContainer independent={true}>
 
@@ -48,7 +50,7 @@ const HomeRoute = () => {
 
                 <Tab.Screen
                     options={{
-                        tabBarLabel: '',
+                        tabBarLabel: 'Information',
                         tabBarIcon: ({color}) => (
                             <Image
                                 source={require('../assets/icons/activity_history_50px.png')}
@@ -63,7 +65,7 @@ const HomeRoute = () => {
 
                 <Tab.Screen
                     options={{
-                        tabBarLabel: 'Report',
+                        tabBarLabel: 'To-Do',
                         tabBarIcon: ({color}) => (
                             <Image
                                 source={require('../assets/icons/checklist_50px.png')}
@@ -73,12 +75,12 @@ const HomeRoute = () => {
                         ),
                     }}
                     name="ReportScreen"
-                    component={ReportScreen}
+                    component={ToDoScreen}
                 />
 
                 <Tab.Screen
                     options={{
-                        tabBarLabel: '',
+                        tabBarLabel: 'Profile',
                         tabBarIcon: ({color}) => (
                             <Image
                                 source={require('../assets/icons/profile.png')}
