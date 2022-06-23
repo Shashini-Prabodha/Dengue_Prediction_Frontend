@@ -44,6 +44,7 @@ const SignUpScreen = () => {
 
                     await AsyncStorage.setItem('email', email);
                     await AsyncStorage.setItem('password', password);
+                    // await AsyncStorage.setItem('alreadyLaunched', 'true');
 
                     console.log('11' + email + ' ' + password);
                     console.log('press');

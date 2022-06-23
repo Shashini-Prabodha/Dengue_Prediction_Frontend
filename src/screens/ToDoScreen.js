@@ -10,9 +10,56 @@ const ToDoScreen = () => {
         labels: ['Done'], // optional
         data: [0.7],
     };
+    const [Color1, setColor1] = useState("#ffffff");
+    const [Color2, setColor2] = useState("#ffffff");
+    const [Color3, setColor3] = useState("#ffffff");
+    const [Color4, setColor4] = useState("#ffffff");
+    const [Color5, setColor5] = useState("#ffffff");
+    const [Color6, setColor6] = useState("#ffffff");
+    const [Color7, setColor7] = useState("#ffffff");
+    const [Color8, setColor8] = useState("#ffffff");
+    const [Color9, setColor9] = useState("#ffffff");
+    const [Color10, setColor10] = useState("#ffffff");
 
-    const [setColor] = useState(0);
-    const onPress = () => setColor(styles.task.backgroundColor='red');
+    const markTask = (id) => {
+        console.log("Press"+id)
+
+        if(id =='1') {
+            setColor1("#befdc1")
+        }else if(id == '2'){
+            setColor2("#befdc1")
+        }else if(id == '3'){
+            setColor3("#befdc1")
+        }else if(id == '4'){
+            setColor4("#befdc1")
+        }else if(id == '5'){
+            setColor5("#befdc1")
+        }else if(id == '6'){
+            setColor6("#befdc1")
+        }else if(id == '7'){
+            setColor7("#befdc1")
+        }else if(id == '8'){
+            setColor8("#befdc1")
+        }else if(id == '9'){
+            setColor9("#befdc1")
+        }else if(id == '10'){
+            setColor10("#befdc1")
+
+        }else{
+            setColor1("#ffffff")
+            setColor2("#ffffff")
+            setColor3("#ffffff")
+            setColor4("#ffffff")
+            setColor5("#ffffff")
+            setColor6("#ffffff")
+            setColor7("#ffffff")
+            setColor8("#ffffff")
+            setColor9("#ffffff")
+            setColor10("#ffffff")
+
+        }
+
+    }
 
     const chartConfig = {
         backgroundGradientFromOpacity: 0,
@@ -65,7 +112,7 @@ const ToDoScreen = () => {
 
                     <ScrollView horizontal={false} showsVerticalScrollIndicator={false}>
 
-                        <View style={styles.task}>
+                        <View style={[styles.task, {backgroundColor: Color1}]}>
 
                             {/*Task Number  -------------------------------------------------------------------------*/}
                             <View style={styles.taskNumberView}>
@@ -84,9 +131,8 @@ const ToDoScreen = () => {
 
                                 {/*Left Side Button -----------------------------------------------------------------*/}
                                 <View style={styles.taskButtonViewSide}>
-                                    <TouchableOpacity style={styles.btnDone} onPress={onPress
-                                    }>
-                                        <TouchableOpacity style={styles.btnDoneCircle}>
+                                    <TouchableOpacity style={styles.btnDone}>
+                                        <TouchableOpacity style={styles.btnDoneCircle}  onPress={()=>markTask('1')}>
                                             <Image
                                                 source={require('../assets/icons/Done_127px.png')}
                                                 resizeMode="contain"
@@ -111,7 +157,7 @@ const ToDoScreen = () => {
                             </View>
                         </View>
 
-                        <View style={styles.task}>
+                        <View style={[styles.task, {backgroundColor: Color2}]}>
 
                             {/*Task Number  -------------------------------------------------------------------------*/}
                             <View style={styles.taskNumberView}>
@@ -132,7 +178,7 @@ const ToDoScreen = () => {
                                 {/*Left Side Button -----------------------------------------------------------------*/}
                                 <View style={styles.taskButtonViewSide}>
                                     <TouchableOpacity style={styles.btnDone}>
-                                        <TouchableOpacity style={styles.btnDoneCircle}>
+                                        <TouchableOpacity style={styles.btnDoneCircle}   onPress={()=>markTask('2')}>
                                             <Image
                                                 source={require('../assets/icons/Done_127px.png')}
                                                 resizeMode="contain"
@@ -157,7 +203,7 @@ const ToDoScreen = () => {
                             </View>
                         </View>
 
-                        <View style={styles.task}>
+                        <View style={[styles.task, {backgroundColor: Color3}]}>
 
                             {/*Task Number  -------------------------------------------------------------------------*/}
                             <View style={styles.taskNumberView}>
@@ -177,7 +223,7 @@ const ToDoScreen = () => {
                                 {/*Left Side Button -----------------------------------------------------------------*/}
                                 <View style={styles.taskButtonViewSide}>
                                     <TouchableOpacity style={styles.btnDone}>
-                                        <TouchableOpacity style={styles.btnDoneCircle}>
+                                        <TouchableOpacity style={styles.btnDoneCircle}   onPress={()=>markTask('3')}>
                                             <Image
                                                 source={require('../assets/icons/Done_127px.png')}
                                                 resizeMode="contain"
@@ -202,7 +248,7 @@ const ToDoScreen = () => {
                             </View>
                         </View>
 
-                        <View style={styles.task}>
+                        <View style={[styles.task, {backgroundColor: Color4}]}>
 
                             {/*Task Number  -------------------------------------------------------------------------*/}
                             <View style={styles.taskNumberView}>
@@ -222,7 +268,7 @@ const ToDoScreen = () => {
                                 {/*Left Side Button -----------------------------------------------------------------*/}
                                 <View style={styles.taskButtonViewSide}>
                                     <TouchableOpacity style={styles.btnDone}>
-                                        <TouchableOpacity style={styles.btnDoneCircle}>
+                                        <TouchableOpacity style={styles.btnDoneCircle}   onPress={()=>markTask('4')}>
                                             <Image
                                                 source={require('../assets/icons/Done_127px.png')}
                                                 resizeMode="contain"
@@ -247,7 +293,7 @@ const ToDoScreen = () => {
                             </View>
                         </View>
 
-                        <View style={styles.task}>
+                        <View style={[styles.task, {backgroundColor: Color5}]}>
 
                             {/*Task Number  -------------------------------------------------------------------------*/}
                             <View style={styles.taskNumberView}>
@@ -267,7 +313,7 @@ const ToDoScreen = () => {
                                 {/*Left Side Button -----------------------------------------------------------------*/}
                                 <View style={styles.taskButtonViewSide}>
                                     <TouchableOpacity style={styles.btnDone}>
-                                        <TouchableOpacity style={styles.btnDoneCircle}>
+                                        <TouchableOpacity style={styles.btnDoneCircle}  onPress={()=>markTask('5')}>
                                             <Image
                                                 source={require('../assets/icons/Done_127px.png')}
                                                 resizeMode="contain"
@@ -292,7 +338,7 @@ const ToDoScreen = () => {
                             </View>
                         </View>
 
-                        <View style={styles.task}>
+                        <View style={[styles.task, {backgroundColor: Color6}]}>
 
                             {/*Task Number  -------------------------------------------------------------------------*/}
                             <View style={styles.taskNumberView}>
@@ -312,7 +358,7 @@ const ToDoScreen = () => {
                                 {/*Left Side Button -----------------------------------------------------------------*/}
                                 <View style={styles.taskButtonViewSide}>
                                     <TouchableOpacity style={styles.btnDone}>
-                                        <TouchableOpacity style={styles.btnDoneCircle}>
+                                        <TouchableOpacity style={styles.btnDoneCircle}   onPress={()=>markTask('6')}>
                                             <Image
                                                 source={require('../assets/icons/Done_127px.png')}
                                                 resizeMode="contain"
@@ -337,7 +383,7 @@ const ToDoScreen = () => {
                             </View>
                         </View>
 
-                        <View style={styles.task}>
+                        <View style={[styles.task, {backgroundColor: Color7}]}>
 
                             {/*Task Number  -------------------------------------------------------------------------*/}
                             <View style={styles.taskNumberView}>
@@ -357,7 +403,7 @@ const ToDoScreen = () => {
                                 {/*Left Side Button -----------------------------------------------------------------*/}
                                 <View style={styles.taskButtonViewSide}>
                                     <TouchableOpacity style={styles.btnDone}>
-                                        <TouchableOpacity style={styles.btnDoneCircle}>
+                                        <TouchableOpacity style={styles.btnDoneCircle}   onPress={()=>markTask('7')}>
                                             <Image
                                                 source={require('../assets/icons/Done_127px.png')}
                                                 resizeMode="contain"
@@ -382,7 +428,7 @@ const ToDoScreen = () => {
                             </View>
                         </View>
 
-                        <View style={styles.task}>
+                        <View style={[styles.task, {backgroundColor: Color8}]}>
 
                             {/*Task Number  -------------------------------------------------------------------------*/}
                             <View style={styles.taskNumberView}>
@@ -402,7 +448,7 @@ const ToDoScreen = () => {
                                 {/*Left Side Button -----------------------------------------------------------------*/}
                                 <View style={styles.taskButtonViewSide}>
                                     <TouchableOpacity style={styles.btnDone}>
-                                        <TouchableOpacity style={styles.btnDoneCircle} >
+                                        <TouchableOpacity style={styles.btnDoneCircle}   onPress={()=>markTask('8')}>
                                             <Image
                                                 source={require('../assets/icons/Done_127px.png')}
                                                 resizeMode="contain"
@@ -427,7 +473,7 @@ const ToDoScreen = () => {
                             </View>
                         </View>
 
-                        <View style={styles.task}>
+                        <View style={[styles.task, {backgroundColor: Color9}]}>
 
                             {/*Task Number  -------------------------------------------------------------------------*/}
                             <View style={styles.taskNumberView}>
@@ -448,7 +494,7 @@ const ToDoScreen = () => {
                                 {/*Left Side Button -----------------------------------------------------------------*/}
                                 <View style={styles.taskButtonViewSide}>
                                     <TouchableOpacity style={styles.btnDone}>
-                                        <TouchableOpacity style={styles.btnDoneCircle}>
+                                        <TouchableOpacity style={styles.btnDoneCircle}   onPress={()=>markTask('9')}>
                                             <Image
                                                 source={require('../assets/icons/Done_127px.png')}
                                                 resizeMode="contain"
@@ -473,7 +519,7 @@ const ToDoScreen = () => {
                             </View>
                         </View>
 
-                        <View style={styles.task}>
+                        <View style={[styles.task, {backgroundColor: Color10}]}>
 
                             {/*Task Number  -------------------------------------------------------------------------*/}
                             <View style={styles.taskNumberView}>
@@ -494,7 +540,7 @@ const ToDoScreen = () => {
                                 {/*Left Side Button -----------------------------------------------------------------*/}
                                 <View style={styles.taskButtonViewSide}>
                                     <TouchableOpacity style={styles.btnDone}>
-                                        <TouchableOpacity style={styles.btnDoneCircle}>
+                                        <TouchableOpacity style={styles.btnDoneCircle} onPress={()=>markTask('10')}>
                                             <Image
                                                 source={require('../assets/icons/Done_127px.png')}
                                                 resizeMode="contain"
@@ -518,6 +564,11 @@ const ToDoScreen = () => {
                                 </View>
                             </View>
                         </View>
+
+                        <View style={[styles.space]}>
+
+                        </View>
+
 
                     </ScrollView>
                 </View>
@@ -601,12 +652,12 @@ const styles = StyleSheet.create({
     },
     taskView: {
         width: '100%',
-        height: '60%',
+        height: '64%',
         // backgroundColor: '#ffff00'
     },
     bottomView: {
         width: '100%',
-        height: '12%',
+        height: '8%',
         // backgroundColor: '#ff6a00'
     },
     taskNumberView: {
@@ -659,7 +710,17 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginTop: '1%',
     },
-
+    space: {
+        height: 20,
+        // backgroundColor: '#fff',
+        borderRadius: 25,
+        width: '97%',
+        marginBottom: 10,
+        // elevation: 5,
+        alignSelf: 'center',
+        flexDirection: 'row',
+        marginTop: '1%',
+    },
     formLabel: {
         position: 'absolute',
         // left: 30,

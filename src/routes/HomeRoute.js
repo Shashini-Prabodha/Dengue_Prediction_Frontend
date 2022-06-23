@@ -13,6 +13,8 @@ import ProfileScreen from "../screens/ProfileScreen";
 const Tab = createMaterialBottomTabNavigator();
 
 const HomeRoute = () => {
+
+
     return (
         <NavigationContainer independent={true}>
 

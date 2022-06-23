@@ -34,6 +34,8 @@ const UserDataInputScreen = () => {
 
     const [name, setName] = useState();
     const [district, setDistrict] = useState(null);
+    const [dno, setDno] = useState();
+
 
 
     const storeData = async () => {
@@ -41,6 +43,7 @@ const UserDataInputScreen = () => {
             console.log('in ' + district+" * "+name);
             await AsyncStorage.setItem('name', name);
             await AsyncStorage.setItem('district', district);
+            await AsyncStorage.setItem('dno', value);
             navigateHome()
         } catch (e) {
 

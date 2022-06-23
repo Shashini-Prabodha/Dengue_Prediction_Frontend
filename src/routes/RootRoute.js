@@ -25,9 +25,10 @@ const RootRoute = () => {
 
     useEffect(() => {
 
-        AsyncStorage.getItem('alreadyLaunched').then(value => {
+        AsyncStorage.getItem('email').then(value => {
+            console.log("email => "+value)
             if (value === null) {
-                AsyncStorage.setItem('alreadyLaunched', 'true');
+                // AsyncStorage.setItem('alreadyLaunched', 'true');
                 setIsLaunch(true);
             } else {
                 setIsLaunch(false);
@@ -37,6 +38,7 @@ const RootRoute = () => {
         const timeout = setTimeout(() => {
             setIsLoading(false);
         }, 2500);
+
         return () => {
             clearTimeout(timeout);
         };
@@ -57,7 +59,11 @@ const RootRoute = () => {
                             gestureDirection: 'horizontal',
                         })}
                     >
+                        <Stack.Screen name="SignUpScreen" component={SignUpScreen}/>
                         <Stack.Screen name="LogInScreen" component={LogInScreen}/>
+                        <Stack.Screen name="UserDataInputScreen" component={UserDataInputScreen}/>
+                        <Stack.Screen name="HomeRoute" component={HomeRoute}/>
+                        <Stack.Screen name="HomeScreen" component={HomeScreen}/>
 
                     </Stack.Navigator>
                 </NavigationContainer>
@@ -76,12 +82,8 @@ const RootRoute = () => {
                             gestureDirection: 'horizontal',
                         })}
                     >
-                        {/*<Stack.Screen name="WelcomeScreen" component={WelcomeScreen}/>*/}
-                        <Stack.Screen name="SignUpScreen" component={SignUpScreen}/>
-                        <Stack.Screen name="LogInScreen" component={LogInScreen}/>
-                        <Stack.Screen name="UserDataInputScreen" component={UserDataInputScreen}/>
-                        <Stack.Screen name="HomeRoute" component={HomeRoute}/>
 
+                        <Stack.Screen name="HomeRoute" component={HomeRoute}/>
                         <Stack.Screen name="HomeScreen" component={HomeScreen}/>
 
 

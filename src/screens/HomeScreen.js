@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, RefreshControl, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {FlatGrid} from 'react-native-super-grid';
 import {ScrollView} from 'react-native-gesture-handler';
 import * as Animatable from 'react-native-animatable';
@@ -7,10 +7,22 @@ import WavyBackground from 'react-native-wavy-background';
 import LottieView from 'lottie-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+}
+
 const HomeScreen = () => {
     const [email, setEmail] = useState();
     const [name, setName] = useState();
     const [district, setDistrict] = useState();
+    const [refreshing, setRefreshing] = React.useState(false);
+
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        getData()
+        wait(1000).then(() => setRefreshing(false));
+    }, []);
+
 
     const getData = async () => {
         try {
@@ -72,7 +84,12 @@ const HomeScreen = () => {
 
             {/*Home Content View ------------------------------------------------------------------------------------*/}
             <View style={styles.homeContentView}>
-                <ScrollView horizontal={false} showsVerticalScrollIndicator={false}>
+                <ScrollView horizontal={false} showsVerticalScrollIndicator={false}  refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={onRefresh}
+                    />
+                }>
                     <Animatable.View style={styles.ZoneCardView} >
                         <TouchableOpacity style={styles.ZoneCard}>
 
