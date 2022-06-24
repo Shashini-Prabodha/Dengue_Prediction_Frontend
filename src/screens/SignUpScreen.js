@@ -83,52 +83,29 @@ const SignUpScreen = () => {
             } catch (e) {
                 // saving error
             }
+
         };
 
-        const signUpUser =async () =>  {
+        const signUpUser = () => {
             console.log('in sign up ' + MONGO_USER_SIGN_UP);
-          //   try {
-          //       fetch(MONGO_USER_SIGN_UP, {
-          //           method: 'POST',
-          //           headers: {
-          //               Accept: 'application/json',
-          //               'Content-Type': 'application/json',
-          //           },
-          //           body: JSON.stringify({
-          //                           email: 'email',
-          //                           password: 'password',
-          //                           name: 'n',
-          //                           district: 'd',
-          //           }),
-          //       });
-          // } catch (error) {
-          //       console.error(error);
-          //   }
-
-
-                const requestOptions = {
+            try {
+                fetch(MONGO_USER_SIGN_UP, {
                     method: 'POST',
-                    headers: {Accept: 'application/json',
-                        'Content-Type': 'application/json'},
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                    },
                     body: JSON.stringify({
-                        email: 'email',
-                        password: 'password',
-                        name: 'n',
-                        district: 'd',
+                        'email': email,
+                        'password': password,
+                        'name': '',
+                        'district': '',
                     }),
-                };
+                })
+            } catch (error) {
+                console.error(error);
+            }
 
-                try {
-                   await  fetch(MONGO_USER_SIGN_UP, requestOptions)
-                        .then(response => {
-                            response.json()
-                               .then(data => {
-
-                                });
-                        });
-                } catch (error) {
-                    console.error(error);
-                }
 
         };
 
@@ -191,7 +168,7 @@ const SignUpScreen = () => {
 
 
                                         <View style={styles.btnView}>
-                                            <TouchableOpacity style={styles.btnSignUp} mode="contained" onPress={signup}>
+                                            <TouchableOpacity style={styles.btnSignUp} mode="contained" onPress={()=>signup()}>
                                                 <Text style={styles.btnSignUpTxt}>Sign Up</Text>
                                             </TouchableOpacity>
 

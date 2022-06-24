@@ -13,6 +13,7 @@ import {useNavigation} from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {ALERT_TYPE, Dialog} from 'react-native-alert-notification';
+import {MONGO_USER_SEARCH, MONGO_USER_SIGN_UP} from '../api/api';
 
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
@@ -26,7 +27,7 @@ const LogInScreen = () => {
     const useNavigate = useNavigation();
 
     const navigateAgent = () => {
-        useNavigate.navigate('HomeScreen');
+        useNavigate.navigate('HomeRoute');
     };
     const navigateSignUp = () => {
         useNavigate.navigate('SignUpScreen');
@@ -39,12 +40,10 @@ const LogInScreen = () => {
                 // if (this.getData.bind(this)) {
                 if (email !== null && password !== null) {
 
-                    await AsyncStorage.setItem('email', email);
-                    await AsyncStorage.setItem('password', password);
 
                     console.log('11' + email + ' ' + password);
                     console.log('press');
-
+                    signInUser()
                 } else {
                     Dialog.show({
                         type: ALERT_TYPE.DANGER,
@@ -52,7 +51,6 @@ const LogInScreen = () => {
                         textBody: 'Incorrect Email or password..! Please check or sign up',
                         button: 'Close',
                     });
-                    // Alert.alert('Incorrect Email or password..! Please check or sign up');
                 }
                 Dialog.show({
                     type: ALERT_TYPE.SUCCESS,
@@ -62,10 +60,8 @@ const LogInScreen = () => {
                 });
                 navigateAgent();
 
-                // Alert.alert('Data Saved !');
-                //
             } else {
-                // Alert.alert("Please input Email or Password ")
+
                 Dialog.show({
                     type: ALERT_TYPE.DANGER,
                     title: 'Something wrong!',
@@ -74,12 +70,41 @@ const LogInScreen = () => {
                 });
 
             }
-
-
         } catch (e) {
             // saving error
         }
     };
+
+
+    const signInUser = () => {
+        console.log('in sign up ' + MONGO_USER_SEARCH);
+        try {
+            fetch(MONGO_USER_SEARCH, {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    'email': email,
+                    'password': password,
+                }),
+            }).then((response) => response.json())
+                .then(async (response) => {
+                    await AsyncStorage.setItem('email', email);
+                    await AsyncStorage.setItem('password', password);
+
+                    let r = response;
+                    console.log("r=> " + r);
+                });
+        } catch (error) {
+            console.error(error);
+        }
+
+
+    };
+
+
     return (
 
         <KeyboardAwareScrollView style={[{height: SCREEN_HEIGHT}]}>

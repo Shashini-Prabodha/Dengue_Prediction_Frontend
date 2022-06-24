@@ -15,6 +15,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import data from '../assets/data/Data.js'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
+import {MONGO_USER_SIGN_UP, MONGO_USER_SIGN_UP_UPADTE} from '../api/api';
 
 
 const SCREEN_HEIGHT = Dimensions.get('window').height;
@@ -34,6 +35,7 @@ const UserDataInputScreen = () => {
 
     const [name, setName] = useState();
     const [district, setDistrict] = useState(null);
+    const [email, setEmail] = useState(null);
     const [dno, setDno] = useState();
 
 
@@ -44,10 +46,36 @@ const UserDataInputScreen = () => {
             await AsyncStorage.setItem('name', name);
             await AsyncStorage.setItem('district', district);
             await AsyncStorage.setItem('dno', value);
+           setEmail(await AsyncStorage.getItem('email'));
+
+            await signUpUser()
+
             navigateHome()
         } catch (e) {
 
         }
+
+    };
+
+    const signUpUser = () => {
+        console.log('in sign up ' + MONGO_USER_SIGN_UP_UPADTE);
+        try {
+            fetch(MONGO_USER_SIGN_UP_UPADTE, {
+                method: 'PATCH',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    'email': email,
+                    'name': name,
+                    'district': district,
+                }),
+            })
+        } catch (error) {
+            console.error(error);
+        }
+
 
     };
 

@@ -23,6 +23,7 @@ import {ALERT_TYPE, Root, Toast} from 'react-native-alert-notification';
 import * as Animatable from 'react-native-animatable';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import Dialog from 'react-native-dialog';
+import {MONGO_USER_SIGN_UP, MONGO_USER_SIGN_UP_UPADTE} from '../api/api';
 
 const ProfileScreen = () => {
     // console.disableYellowBox = true;
@@ -33,6 +34,7 @@ const ProfileScreen = () => {
     const [district, setDistrict] = useState();
     const [dno, setDno] = useState();
     const [name, setName] = useState();
+    const [email, setEmail] = useState(null);
 
     let [showAlert, setShowAlert] = useState(false);
 
@@ -47,7 +49,8 @@ const ProfileScreen = () => {
         await AsyncStorage.setItem('name', name);
         await AsyncStorage.setItem('district', district);
         await AsyncStorage.setItem('dno', dno);
-
+        setEmail(await AsyncStorage.getItem('email'));
+        updateUser();
 
         setShowAlert(false);
 
@@ -56,6 +59,28 @@ const ProfileScreen = () => {
             title: 'Success',
             textBody: 'Done! Your profile updated!',
         });
+    };
+
+    const updateUser = () => {
+        console.log('in sign up ' + MONGO_USER_SIGN_UP_UPADTE);
+        try {
+            fetch(MONGO_USER_SIGN_UP_UPADTE, {
+                method: 'PATCH',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    'email': email,
+                    'name': name,
+                    'district': district
+                }),
+            });
+        } catch (error) {
+            console.error(error);
+        }
+
+
     };
 
     const hideAlert = () => {
@@ -95,18 +120,18 @@ const ProfileScreen = () => {
                                 </View>
 
                                 {/*<View style={styles.lottie}>*/}
-                                    <LottieView style={styles.icon}
-                                                source={require('../assets/icons/avator.json')}
-                                                colorFilters={[{
-                                                    keypath: 'button',
-                                                    color: '#F00000',
-                                                }, {
-                                                    keypath: 'Sending Loader',
-                                                    color: '#F00000',
-                                                }]}
-                                                autoPlay
-                                                loop
-                                    />
+                                <LottieView style={styles.icon}
+                                            source={require('../assets/icons/avator.json')}
+                                            colorFilters={[{
+                                                keypath: 'button',
+                                                color: '#F00000',
+                                            }, {
+                                                keypath: 'Sending Loader',
+                                                color: '#F00000',
+                                            }]}
+                                            autoPlay
+                                            loop
+                                />
                                 {/*</View>*/}
                                 <View style={styles.loginDetailsView}>
 
@@ -218,7 +243,7 @@ const ProfileScreen = () => {
 
 const styles = StyleSheet.create({
     container: {
-        height:'100%',
+        height: '100%',
         flex: 1,
         backgroundColor: 'white',
         justifyContent: 'flex-start',
