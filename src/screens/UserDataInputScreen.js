@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     Dimensions,
     Image,
@@ -12,14 +12,13 @@ import {
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Dropdown} from 'react-native-element-dropdown';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import data from '../assets/data/Data.js'
+import data from '../assets/data/Data.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
 import {MONGO_USER_SIGN_UP, MONGO_USER_SIGN_UP_UPADTE} from '../api/api';
 
 
 const SCREEN_HEIGHT = Dimensions.get('window').height;
-
 
 
 const UserDataInputScreen = () => {
@@ -38,19 +37,31 @@ const UserDataInputScreen = () => {
     const [email, setEmail] = useState(null);
     const [dno, setDno] = useState();
 
+    const getData = async () => {
+        try {
+            const email = await AsyncStorage.getItem('email');
+            setEmail(email)
+
+        } catch (e) {
+            // error reading value
+        }
+    }
+
+    useEffect(() => {
+        getData();
+    }, []);
 
 
     const storeData = async () => {
         try {
-            console.log('in ' + district+" * "+name);
+            console.log('in ' + district + ' * ' + name);
             await AsyncStorage.setItem('name', name);
             await AsyncStorage.setItem('district', district);
             await AsyncStorage.setItem('dno', value);
-           setEmail(await AsyncStorage.getItem('email'));
+            console.log('EMAIL =>' + email);
+            await signUpUser();
 
-            await signUpUser()
-
-            navigateHome()
+            navigateHome();
         } catch (e) {
 
         }
@@ -58,7 +69,7 @@ const UserDataInputScreen = () => {
     };
 
     const signUpUser = () => {
-        console.log('in sign up ' + MONGO_USER_SIGN_UP_UPADTE);
+        console.log('in sign up ' + MONGO_USER_SIGN_UP_UPADTE + email);
         try {
             fetch(MONGO_USER_SIGN_UP_UPADTE, {
                 method: 'PATCH',
@@ -71,12 +82,10 @@ const UserDataInputScreen = () => {
                     'name': name,
                     'district': district,
                 }),
-            })
+            });
         } catch (error) {
             console.error(error);
         }
-
-
     };
 
     return (
@@ -129,7 +138,7 @@ const UserDataInputScreen = () => {
                                 onBlur={() => setIsFocus(false)}
                                 onChange={item => {
                                     setValue(item.value);
-                                    setDistrict(item.label)
+                                    setDistrict(item.label);
                                     setIsFocus(false);
                                 }}
                                 // renderLeftIcon={() => (
@@ -144,14 +153,13 @@ const UserDataInputScreen = () => {
                         </View>
 
                         <View style={styles.btnView}>
-                            <TouchableOpacity style={styles.go} mode="contained" onPress={storeData}>
+                            <TouchableOpacity style={styles.go} mode="contained" onPress={() => storeData()}>
                                 <Text style={styles.goTxt}>Go</Text>
                             </TouchableOpacity>
                         </View>
 
 
                     </View>
-
 
 
                     <View style={styles.imgView}>
@@ -190,26 +198,26 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         // fontFamily: 'Poppins-Black',
     },
-    nameTitleView:{
-      width:'80%',
-        height:'11%',
-        textAlign:'left',
-      // backgroundColor:'red'
+    nameTitleView: {
+        width: '80%',
+        height: '11%',
+        textAlign: 'left',
+        // backgroundColor:'red'
     },
     label1: {
         fontSize: 14,
-        color:'grey',
-        marginTop:'-2%'
+        color: 'grey',
+        marginTop: '-2%',
     },
-    nameTitleView2:{
-        width:'80%',
-        height:'11%',
-        textAlign:'left',
+    nameTitleView2: {
+        width: '80%',
+        height: '11%',
+        textAlign: 'left',
         // backgroundColor:'red'
     },
     label2: {
         fontSize: 14,
-        color:'grey',
+        color: 'grey',
     },
     imgView: {
         width: '100%',
@@ -238,7 +246,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         height: 50,
-        marginTop:"-5%"
+        marginTop: '-5%',
     },
     txtField: {
         width: '80%',
@@ -276,8 +284,8 @@ const styles = StyleSheet.create({
         width: '80%',
         height: 50,
         marginTop: '5%',
-        justifyContent:'center',
-        alignItems:'center'
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     go: {
         width: '30%',
@@ -308,8 +316,8 @@ const styles = StyleSheet.create({
     //     marginRight: 5,
     // },
     label: {
-left:5,
-        padding:5,
+        left: 5,
+        padding: 5,
         fontSize: 14,
     },
     placeholderStyle: {

@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, RefreshControl, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {FlatGrid} from 'react-native-super-grid';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -9,38 +9,70 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const wait = (timeout) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
-}
+};
 
 const HomeScreen = () => {
     const [email, setEmail] = useState();
     const [name, setName] = useState();
+    const [zone, setZone] = useState();
     const [district, setDistrict] = useState();
     const [refreshing, setRefreshing] = React.useState(false);
 
+    const [Color1, setColor1] = useState("#ecd807");
+
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
-        getData()
+        getData();
         wait(1000).then(() => setRefreshing(false));
     }, []);
 
 
     const getData = async () => {
         try {
-            console.log("####")
+            console.log('####');
 
             const email = await AsyncStorage.getItem('email');
             const name = await AsyncStorage.getItem('name');
             const district = await AsyncStorage.getItem('district');
-            setName(name)
-            setDistrict(district)
-            setEmail(email)
+            setName(name);
+            setDistrict(district);
+            setEmail(email);
 
-            console.log("####" + email + " " + district)
+            getZone()
+
+            console.log('####' + email + ' ' + district);
 
         } catch (e) {
             // error reading value
         }
-    }
+    };
+
+    const getZone = async () => {
+        setZone("Yellow Zone")
+        setColor1("#d92323")
+        //
+        // const url = 'https://dengue-server.herokuapp.com' + '/get_zone?district=' + district;
+        // console.log('in  ' + url);
+        // try {
+        //     fetch(url, {
+        //         method: 'GET',
+        //         headers: {
+        //             Accept: 'application/json',
+        //             'Content-Type': 'application/json',
+        //         },
+        //
+        //     }).then((response) => response.json())
+        //         .then(async (response) => {
+        //
+        //
+        //         });
+        //
+        //
+        // } catch (e) {
+        //     // error reading value
+        // }
+
+    };
 
     useEffect(() => {
         getData();
@@ -49,16 +81,16 @@ const HomeScreen = () => {
     return (
 
 
-        <Animatable.View style={styles.container} animation="fadeInRight" >
+        <Animatable.View style={styles.container} animation="fadeInRight">
 
             <View style={styles.bottom}>
                 <WavyBackground
-                                height={400}
-                                width={1300}
-                                amplitude={50}
-                                frequency={1}
-                                offset={180}
-                                color='rgba(155,155,155,0.3)'
+                    height={400}
+                    width={1300}
+                    amplitude={50}
+                    frequency={1}
+                    offset={180}
+                    color="rgba(155,155,155,0.3)"
                 />
             </View>
             <View style={styles.bottom2}>
@@ -68,7 +100,7 @@ const HomeScreen = () => {
                     amplitude={50}
                     frequency={1}
                     offset={180}
-                    color='rgba(255,72,72,0.5)'
+                    color="rgba(255,72,72,0.5)"
                 />
             </View>
             <View style={styles.homeTopView}>
@@ -84,14 +116,14 @@ const HomeScreen = () => {
 
             {/*Home Content View ------------------------------------------------------------------------------------*/}
             <View style={styles.homeContentView}>
-                <ScrollView horizontal={false} showsVerticalScrollIndicator={false}  refreshControl={
+                <ScrollView horizontal={false} showsVerticalScrollIndicator={false} refreshControl={
                     <RefreshControl
                         refreshing={refreshing}
                         onRefresh={onRefresh}
                     />
                 }>
-                    <Animatable.View style={styles.ZoneCardView} >
-                        <TouchableOpacity style={styles.ZoneCard}>
+                    <Animatable.View style={styles.ZoneCardView}>
+                        <TouchableOpacity style={[styles.ZoneCard, {backgroundColor: Color1}]}>
 
                             <View style={styles.homeCol0Top}>
 
@@ -109,11 +141,11 @@ const HomeScreen = () => {
                                         <LottieView style={styles.icon}
                                                     source={require('../assets/icons/rd2.json')}
                                                     colorFilters={[{
-                                                        keypath: "button",
-                                                        color: "#F00000"
+                                                        keypath: 'button',
+                                                        color: '#F00000',
                                                     }, {
-                                                        keypath: "Sending Loader",
-                                                        color: "#F00000"
+                                                        keypath: 'Sending Loader',
+                                                        color: '#F00000',
                                                     }]}
                                                     autoPlay
                                                     loop
@@ -123,7 +155,7 @@ const HomeScreen = () => {
                             </View>
 
                             <View style={styles.zoneColMid}>
-                                <Text style={styles.zoneMidTxt}>Yellow Zone</Text>
+                                <Text style={styles.zoneMidTxt}>{zone}</Text>
                             </View>
 
                         </TouchableOpacity>
@@ -134,7 +166,7 @@ const HomeScreen = () => {
 
                     <View style={styles.HomeCardMidSpace}/>
 
-                    <Animatable.View style={styles.HomeCardView} >
+                    <Animatable.View style={styles.HomeCardView}>
                         <View style={styles.HomeCardSection1}>
                             <View style={styles.homeCol0Top}>
 
@@ -196,7 +228,7 @@ const HomeScreen = () => {
 
                     <View style={styles.HomeCardMidSpace}/>
 
-                    <Animatable.View style={styles.HomeCardView} >
+                    <Animatable.View style={styles.HomeCardView}>
                         <View style={styles.HomeCardSection3}>
 
                             <View style={styles.homeCol0Top}>
@@ -281,7 +313,7 @@ const styles = StyleSheet.create({
         // backgroundColor: '#f6a800',
         justifyContent: 'center',
         alignItems: 'center',
-        flexDirection: 'row'
+        flexDirection: 'row',
 
     },
     homeTitleView: {
@@ -550,25 +582,25 @@ const styles = StyleSheet.create({
         // height: '10%',
         backgroundColor: 'green',
     },
-    logo:{
-        width:55,
-        height:55,
+    logo: {
+        width: 55,
+        height: 55,
 
     },
     bottom: {
         width: '100%',
         height: '8%',
-        bottom:-55,
-        rotation:180,
-        position:'absolute',
-        zIndex:1,
+        bottom: -55,
+        rotation: 180,
+        position: 'absolute',
+        zIndex: 1,
     },
     bottom2: {
         width: '100%',
         height: '5%',
-        bottom:-80,
-        rotation:180,
-        position:'absolute',
-        zIndex:2,
+        bottom: -80,
+        rotation: 180,
+        position: 'absolute',
+        zIndex: 2,
     },
 });

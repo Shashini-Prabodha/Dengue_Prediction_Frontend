@@ -44,12 +44,25 @@ const ProfileScreen = () => {
 
     };
 
+    const getData = async () => {
+        try {
+            const email = await AsyncStorage.getItem('email');
+            setEmail(email)
+
+        } catch (e) {
+            // error reading value
+        }
+    }
+
+    useEffect(() => {
+        getData();
+    }, []);
+
     const saveAlert = async () => {
 
         await AsyncStorage.setItem('name', name);
         await AsyncStorage.setItem('district', district);
         await AsyncStorage.setItem('dno', dno);
-        setEmail(await AsyncStorage.getItem('email'));
         updateUser();
 
         setShowAlert(false);
@@ -98,7 +111,7 @@ const ProfileScreen = () => {
         AsyncStorage.getItem('dno').then(async value => {
             // await AsyncStorage.setItem('district', value);
             setDno(value);
-            console.log('Value ()=> ' + value);
+            // console.log('Value ()=> ' +    data.label['Ga);
         });
 
 

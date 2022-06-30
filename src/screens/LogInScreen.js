@@ -23,6 +23,9 @@ const LogInScreen = () => {
 
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+    const [name, setName] = useState();
+    const [district, setDistrict] = useState(null);
+    const [dno, setDno] = useState();
 
     const useNavigate = useNavigation();
 
@@ -43,7 +46,7 @@ const LogInScreen = () => {
 
                     console.log('11' + email + ' ' + password);
                     console.log('press');
-                    signInUser()
+                    signInUser();
                 } else {
                     Dialog.show({
                         type: ALERT_TYPE.DANGER,
@@ -58,7 +61,6 @@ const LogInScreen = () => {
                     textBody: 'Login Success...!',
                     button: 'Close',
                 });
-                navigateAgent();
 
             } else {
 
@@ -77,25 +79,29 @@ const LogInScreen = () => {
 
 
     const signInUser = () => {
-        console.log('in sign up ' + MONGO_USER_SEARCH);
+        const url = 'https://dengue-server.herokuapp.com' + '/login_user?email=' + email;
+        console.log('in sign up ' + url);
         try {
-            fetch(MONGO_USER_SEARCH, {
+            fetch(url, {
                 method: 'GET',
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    'email': email,
-                    'password': password,
-                }),
+                // body: JSON.stringify({
+                //     'email': email,
+                //     'password': password,
+                // }),
             }).then((response) => response.json())
                 .then(async (response) => {
-                    await AsyncStorage.setItem('email', email);
-                    await AsyncStorage.setItem('password', password);
 
-                    let r = response;
-                    console.log("r=> " + r);
+                    await AsyncStorage.setItem('email', response.email);
+                    await AsyncStorage.setItem('password', response.password);
+                    await AsyncStorage.setItem('district', response.district);
+                    await AsyncStorage.setItem('name', response.name);
+                    console.log(district + ' ***');
+                    navigateAgent();
+
                 });
         } catch (error) {
             console.error(error);

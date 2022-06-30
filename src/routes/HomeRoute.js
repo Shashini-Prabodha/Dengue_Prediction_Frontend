@@ -1,13 +1,13 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
-import {Image, StyleSheet} from "react-native";
+import {Image, StyleSheet} from 'react-native';
 
 //Import Screens -------------------------------------------------------------------------------------------------------
-import HomeScreen from "../screens/HomeScreen";
-import ToDoScreen from "../screens/ToDoScreen";
-import InformationScreen from "../screens/InformationScreen";
-import ProfileScreen from "../screens/ProfileScreen";
+import HomeScreen from '../screens/HomeScreen';
+import ToDoScreen from '../screens/ToDoScreen';
+import InformationScreen from '../screens/InformationScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 //Tab Navigator --------------------------------------------------------------------------------------------------------
 const Tab = createMaterialBottomTabNavigator();
@@ -74,7 +74,7 @@ const HomeRoute = () => {
                             />
                         ),
                     }}
-                    name="ReportScreen"
+                    name="TodoScreen"
                     component={ToDoScreen}
                 />
 
@@ -98,19 +98,19 @@ const HomeRoute = () => {
 
         </NavigationContainer>
     );
-}
+};
 
 const styles = StyleSheet.create({
     MenuLogo: {
         width: 38,
         height: 38,
-        marginTop: "-25%"
+        marginTop: '-25%',
     },
     menuIcons: {
         width: 30,
         height: 30,
-        marginTop: "-15%"
-    }
+        marginTop: '-15%',
+    },
 });
 
 export default HomeRoute;
