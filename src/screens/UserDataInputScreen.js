@@ -69,7 +69,7 @@ const UserDataInputScreen = () => {
     };
 
     const signUpUser = () => {
-        console.log('in sign up ' + MONGO_USER_SIGN_UP_UPADTE + email);
+        console.log('in update up ' + MONGO_USER_SIGN_UP_UPADTE + email);
         try {
             fetch(MONGO_USER_SIGN_UP_UPADTE, {
                 method: 'PATCH',

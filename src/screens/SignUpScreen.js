@@ -43,12 +43,12 @@ const SignUpScreen = () => {
                     // if (this.getData.bind(this)) {
                     if (email !== null && password !== null) {
 
-                        await AsyncStorage.setItem('email', email);
-                        await AsyncStorage.setItem('password', password);
+                        // await AsyncStorage.setItem('email', email);
+                        // await AsyncStorage.setItem('password', password);
                         // await AsyncStorage.setItem('alreadyLaunched', 'true');
 
-                        console.log('11' + email + ' ' + password);
-                        console.log('press');
+                        // console.log('11' + email + ' ' + password);
+                        // console.log('press');
 
                         signUpUser();
 
@@ -60,13 +60,6 @@ const SignUpScreen = () => {
                             button: 'Close',
                         });
                     }
-                    Dialog.show({
-                        type: ALERT_TYPE.SUCCESS,
-                        title: 'Success!',
-                        textBody: 'Sign Up Success...!',
-                        button: 'Close',
-                    });
-                    navigateAgent();
 
                 } else {
 
@@ -101,13 +94,36 @@ const SignUpScreen = () => {
                         'name': '',
                         'district': '',
                     }),
-                })
+                }).then((response) => response.json())
+                    .then(async (response) => {
+                console.log(response['status'])
+                        if (response == null) {
+                            Dialog.show({
+                                type: ALERT_TYPE.DANGER,
+                                title: 'Already Exist Email',
+                                textBody: 'Already Using this email.Please go to Sign In or use another email ',
+                                button: 'Close',
+                            });
+                        } else {
+
+                            await AsyncStorage.setItem('email', email);
+                            await AsyncStorage.setItem('password', password);
+                            Dialog.show({
+                                type: ALERT_TYPE.SUCCESS,
+                                title: 'Success!',
+                                textBody: 'Sign Up Success...!',
+                                button: 'Close',
+                            });
+
+                            navigateAgent();
+                        }
+                    });
+
             } catch (error) {
-                console.error(error);
+                console.error(error+"***");
             }
-
-
         };
+
 
         return (
             <KeyboardAwareScrollView style={{height: SCREEN_HEIGHT}}>
@@ -168,7 +184,8 @@ const SignUpScreen = () => {
 
 
                                         <View style={styles.btnView}>
-                                            <TouchableOpacity style={styles.btnSignUp} mode="contained" onPress={()=>signup()}>
+                                            <TouchableOpacity style={styles.btnSignUp} mode="contained"
+                                                              onPress={() => signup()}>
                                                 <Text style={styles.btnSignUpTxt}>Sign Up</Text>
                                             </TouchableOpacity>
 

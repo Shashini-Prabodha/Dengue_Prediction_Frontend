@@ -41,13 +41,18 @@ const ProfileScreen = () => {
     const viewAlert = () => {
         setShowAlert(true);
 
-
     };
 
     const getData = async () => {
         try {
             const email = await AsyncStorage.getItem('email');
+            const name = await AsyncStorage.getItem('name');
+            const district = await AsyncStorage.getItem('district');
+            const dno = await AsyncStorage.getItem('dno');
             setEmail(email)
+            setName(name)
+            setDno(dno)
+            console.log("e "+email)
 
         } catch (e) {
             // error reading value
@@ -100,22 +105,7 @@ const ProfileScreen = () => {
         setShowAlert(false);
     };
 
-    useEffect(() => {
 
-        AsyncStorage.getItem('name').then(async value => {
-            console.log('name => ' + value);
-            setName(value);
-        });
-
-
-        AsyncStorage.getItem('dno').then(async value => {
-            // await AsyncStorage.setItem('district', value);
-            setDno(value);
-            // console.log('Value ()=> ' +    data.label['Ga);
-        });
-
-
-    }, []);
 
 
     return (

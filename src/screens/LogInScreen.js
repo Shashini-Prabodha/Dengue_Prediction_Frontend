@@ -55,12 +55,7 @@ const LogInScreen = () => {
                         button: 'Close',
                     });
                 }
-                Dialog.show({
-                    type: ALERT_TYPE.SUCCESS,
-                    title: 'Success!',
-                    textBody: 'Login Success...!',
-                    button: 'Close',
-                });
+
 
             } else {
 
@@ -79,7 +74,7 @@ const LogInScreen = () => {
 
 
     const signInUser = () => {
-        const url = 'https://dengue-server.herokuapp.com' + '/login_user?email=' + email;
+        const url = 'https://dengue-server.herokuapp.com' + '/get_user?email=' + email;
         console.log('in sign up ' + url);
         try {
             fetch(url, {
@@ -94,17 +89,35 @@ const LogInScreen = () => {
                 // }),
             }).then((response) => response.json())
                 .then(async (response) => {
+                    console.log("response => "+response)
+                    if(response !=null) {
+                        await AsyncStorage.setItem('email', response.email);
+                        await AsyncStorage.setItem('password', response.password);
+                        await AsyncStorage.setItem('district', response.district);
+                        await AsyncStorage.setItem('name', response.name);
+                        console.log(response.email + ' ***1');
+                        console.log(response.district + ' ***2');
 
-                    await AsyncStorage.setItem('email', response.email);
-                    await AsyncStorage.setItem('password', response.password);
-                    await AsyncStorage.setItem('district', response.district);
-                    await AsyncStorage.setItem('name', response.name);
-                    console.log(district + ' ***');
-                    navigateAgent();
+                        Dialog.show({
+                            type: ALERT_TYPE.SUCCESS,
+                            title: 'Success!',
+                            textBody: 'Login Success...!',
+                            button: 'Close',
+                        });
 
+
+                        navigateAgent();
+                    }else{
+                        Dialog.show({
+                            type: ALERT_TYPE.DANGER,
+                            title: 'Something wrong!',
+                            textBody: 'Incorrect Email or password..! Please check or sign up',
+                            button: 'Close',
+                        });
+                    }
                 });
         } catch (error) {
-            console.error(error);
+            console.error(error+"2");
         }
 
 

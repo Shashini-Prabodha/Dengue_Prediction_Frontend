@@ -1,65 +1,201 @@
-import React ,{ useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import WavyBackground from 'react-native-wavy-background';
 import {ScrollView} from 'react-native-gesture-handler';
 import * as Animatable from 'react-native-animatable';
 import ProgressChart from 'react-native-chart-kit/dist/ProgressChart';
+import {MONGO_SAVE_TASK, MONGO_USER_SIGN_UP} from '../api/api';
+import {ALERT_TYPE, Dialog} from 'react-native-alert-notification';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ToDoScreen = () => {
+
+    const [Color1, setColor1] = useState('#ffffff');
+    const [Color2, setColor2] = useState('#ffffff');
+    const [Color3, setColor3] = useState('#ffffff');
+    const [Color4, setColor4] = useState('#ffffff');
+    const [Color5, setColor5] = useState('#ffffff');
+    const [Color6, setColor6] = useState('#ffffff');
+    const [Color7, setColor7] = useState('#ffffff');
+    const [Color8, setColor8] = useState('#ffffff');
+    const [Color9, setColor9] = useState('#ffffff');
+    const [Color10, setColor10] = useState('#ffffff');
+    const [x, setX] = useState(0.0);
+    const [disabled, setDisabled] = useState(false);
+    const [disabled2, setDisabled2] = useState(false);
+    const [disabled3, setDisabled3] = useState(false);
+    const [disabled4, setDisabled4] = useState(false);
+    const [disabled5, setDisabled5] = useState(false);
+    const [disabled6, setDisabled6] = useState(false);
+    const [disabled7, setDisabled7] = useState(false);
+    const [disabled8, setDisabled8] = useState(false);
+    const [disabled9, setDisabled9] = useState(false);
+    const [disabled10, setDisabled10] = useState(false);
+    const [email, setEmail] = useState(null);
+
+
     const data = {
         labels: ['Done'], // optional
-        data: [0.7],
+        data: [x],
     };
-    const [Color1, setColor1] = useState("#ffffff");
-    const [Color2, setColor2] = useState("#ffffff");
-    const [Color3, setColor3] = useState("#ffffff");
-    const [Color4, setColor4] = useState("#ffffff");
-    const [Color5, setColor5] = useState("#ffffff");
-    const [Color6, setColor6] = useState("#ffffff");
-    const [Color7, setColor7] = useState("#ffffff");
-    const [Color8, setColor8] = useState("#ffffff");
-    const [Color9, setColor9] = useState("#ffffff");
-    const [Color10, setColor10] = useState("#ffffff");
-
     const markTask = (id) => {
-        console.log("Press"+id)
 
-        if(id =='1') {
-            setColor1("#befdc1")
-        }else if(id == '2'){
-            setColor2("#befdc1")
-        }else if(id == '3'){
-            setColor3("#befdc1")
-        }else if(id == '4'){
-            setColor4("#befdc1")
-        }else if(id == '5'){
-            setColor5("#befdc1")
-        }else if(id == '6'){
-            setColor6("#befdc1")
-        }else if(id == '7'){
-            setColor7("#befdc1")
-        }else if(id == '8'){
-            setColor8("#befdc1")
-        }else if(id == '9'){
-            setColor9("#befdc1")
-        }else if(id == '10'){
-            setColor10("#befdc1")
+        let val = data.data;
+        let x = parseFloat(val) + 0.1;
+        console.log(x + 'Press' + id);
 
-        }else{
-            setColor1("#ffffff")
-            setColor2("#ffffff")
-            setColor3("#ffffff")
-            setColor4("#ffffff")
-            setColor5("#ffffff")
-            setColor6("#ffffff")
-            setColor7("#ffffff")
-            setColor8("#ffffff")
-            setColor9("#ffffff")
-            setColor10("#ffffff")
+        if (id == '1') {
+            setX(x);
+            setDisabled(true);
+            setColor1('#befdc1');
+            saveTask(id)
+
+
+        } else if (id == '2') {
+            setX(x);
+            setDisabled2(true);
+            setColor2('#befdc1');
+            saveTask(id)
+
+        } else if (id == '3') {
+            setX(x);
+            setDisabled3(true);
+            setColor3('#befdc1');
+            saveTask(id)
+
+        } else if (id == '4') {
+            setX(x);
+            setDisabled4(true);
+            setColor4('#befdc1');
+            saveTask(id)
+
+        } else if (id == '5') {
+            setX(x);
+            setDisabled5(true);
+            setColor5('#befdc1');
+            saveTask(id)
+
+        } else if (id == '6') {
+            setX(x);
+            setDisabled6(true);
+            setColor6('#befdc1');
+            saveTask(id)
+
+        } else if (id == '7') {
+            setX(x);
+            setDisabled7(true);
+            setColor7('#befdc1');
+            saveTask(id)
+
+        } else if (id == '8') {
+            setX(x);
+            setDisabled8(true);
+            setColor8('#befdc1');
+            saveTask(id)
+
+        } else if (id == '9') {
+            setX(x);
+            setDisabled9(true);
+            setColor9('#befdc1');
+            saveTask(id)
+
+        } else if (id == '10') {
+            setX(x);
+            setDisabled10(true);
+            setColor10('#befdc1');
+            saveTask(id)
+
+        } else {
+            setX(0.0);
+
+            setDisabled(false);
+            setDisabled2(false);
+            setDisabled3(false);
+            setDisabled4(false);
+            setDisabled5(false);
+            setDisabled6(false);
+            setDisabled7(false);
+            setDisabled8(false);
+            setDisabled9(false);
+            setDisabled10(false);
+
+            setColor1('#ffffff');
+            setColor2('#ffffff');
+            setColor3('#ffffff');
+            setColor4('#ffffff');
+            setColor5('#ffffff');
+            setColor6('#ffffff');
+            setColor7('#ffffff');
+            setColor8('#ffffff');
+            setColor9('#ffffff');
+            setColor10('#ffffff');
 
         }
 
+    };
+
+    const resetTask = () => {
+
     }
+
+    const saveTask = async (id) => {
+        console.log('id ' + id);
+        const email = await AsyncStorage.getItem('email');
+        try {
+            fetch(MONGO_SAVE_TASK, {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "taskid": id,
+                    "email": email,
+                    "status":"COMP",
+                    "date": new Date().toLocaleString()
+
+                }),
+            })
+
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const getToDo = async() => {
+        const email = await AsyncStorage.getItem('email');
+
+        const url = 'https://dengue-server.herokuapp.com' + '/get_todoby_user?email=' + email;
+        console.log('get_todoby_user ' + url);
+        try {
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+
+            }).then((response) => response.json())
+                .then(async (response) => {
+                    console.log("response => "+response.length)
+                    for (let i = 0; i < response.length; i++) {
+                        markTask(response[i])
+                    }
+
+                });
+        } catch (error) {
+            console.error(error+"2");
+        }
+    };
+
+
+    useEffect(() => {
+
+        getToDo();
+
+    }, []);
+
+
 
     const chartConfig = {
         backgroundGradientFromOpacity: 0,
@@ -103,8 +239,8 @@ const ToDoScreen = () => {
 
 
                 </View>
-                <View style={styles.restView}>
-                    <TouchableOpacity style={styles.btnReset}>
+                <View style={styles.resetView}>
+                    <TouchableOpacity style={styles.btnReset} onPress={() => resetTask()}>
                         <Text style={styles.txtRest}>Reset</Text>
                     </TouchableOpacity>
                 </View>
@@ -132,7 +268,9 @@ const ToDoScreen = () => {
                                 {/*Left Side Button -----------------------------------------------------------------*/}
                                 <View style={styles.taskButtonViewSide}>
                                     <TouchableOpacity style={styles.btnDone}>
-                                        <TouchableOpacity style={styles.btnDoneCircle}  onPress={()=>markTask('1')}>
+                                        <TouchableOpacity style={styles.btnDoneCircle} disabled={disabled}
+                                                          onPress={() => markTask('1')
+                                                          }>
                                             <Image
                                                 source={require('../assets/icons/Done_127px.png')}
                                                 resizeMode="contain"
@@ -178,7 +316,8 @@ const ToDoScreen = () => {
                                 {/*Left Side Button -----------------------------------------------------------------*/}
                                 <View style={styles.taskButtonViewSide}>
                                     <TouchableOpacity style={styles.btnDone}>
-                                        <TouchableOpacity style={styles.btnDoneCircle}   onPress={()=>markTask('2')}>
+                                        <TouchableOpacity style={styles.btnDoneCircle} disabled={disabled2}
+                                                          onPress={() => markTask('2')}>
                                             <Image
                                                 source={require('../assets/icons/Done_127px.png')}
                                                 resizeMode="contain"
@@ -223,7 +362,7 @@ const ToDoScreen = () => {
                                 {/*Left Side Button -----------------------------------------------------------------*/}
                                 <View style={styles.taskButtonViewSide}>
                                     <TouchableOpacity style={styles.btnDone}>
-                                        <TouchableOpacity style={styles.btnDoneCircle}   onPress={()=>markTask('3')}>
+                                        <TouchableOpacity style={styles.btnDoneCircle} onPress={() => markTask('3')}>
                                             <Image
                                                 source={require('../assets/icons/Done_127px.png')}
                                                 resizeMode="contain"
@@ -268,7 +407,7 @@ const ToDoScreen = () => {
                                 {/*Left Side Button -----------------------------------------------------------------*/}
                                 <View style={styles.taskButtonViewSide}>
                                     <TouchableOpacity style={styles.btnDone}>
-                                        <TouchableOpacity style={styles.btnDoneCircle}   onPress={()=>markTask('4')}>
+                                        <TouchableOpacity style={styles.btnDoneCircle} onPress={() => markTask('4')}>
                                             <Image
                                                 source={require('../assets/icons/Done_127px.png')}
                                                 resizeMode="contain"
@@ -313,7 +452,7 @@ const ToDoScreen = () => {
                                 {/*Left Side Button -----------------------------------------------------------------*/}
                                 <View style={styles.taskButtonViewSide}>
                                     <TouchableOpacity style={styles.btnDone}>
-                                        <TouchableOpacity style={styles.btnDoneCircle}  onPress={()=>markTask('5')}>
+                                        <TouchableOpacity style={styles.btnDoneCircle} onPress={() => markTask('5')}>
                                             <Image
                                                 source={require('../assets/icons/Done_127px.png')}
                                                 resizeMode="contain"
@@ -358,7 +497,7 @@ const ToDoScreen = () => {
                                 {/*Left Side Button -----------------------------------------------------------------*/}
                                 <View style={styles.taskButtonViewSide}>
                                     <TouchableOpacity style={styles.btnDone}>
-                                        <TouchableOpacity style={styles.btnDoneCircle}   onPress={()=>markTask('6')}>
+                                        <TouchableOpacity style={styles.btnDoneCircle} onPress={() => markTask('6')}>
                                             <Image
                                                 source={require('../assets/icons/Done_127px.png')}
                                                 resizeMode="contain"
@@ -403,7 +542,7 @@ const ToDoScreen = () => {
                                 {/*Left Side Button -----------------------------------------------------------------*/}
                                 <View style={styles.taskButtonViewSide}>
                                     <TouchableOpacity style={styles.btnDone}>
-                                        <TouchableOpacity style={styles.btnDoneCircle}   onPress={()=>markTask('7')}>
+                                        <TouchableOpacity style={styles.btnDoneCircle} onPress={() => markTask('7')}>
                                             <Image
                                                 source={require('../assets/icons/Done_127px.png')}
                                                 resizeMode="contain"
@@ -448,7 +587,7 @@ const ToDoScreen = () => {
                                 {/*Left Side Button -----------------------------------------------------------------*/}
                                 <View style={styles.taskButtonViewSide}>
                                     <TouchableOpacity style={styles.btnDone}>
-                                        <TouchableOpacity style={styles.btnDoneCircle}   onPress={()=>markTask('8')}>
+                                        <TouchableOpacity style={styles.btnDoneCircle} onPress={() => markTask('8')}>
                                             <Image
                                                 source={require('../assets/icons/Done_127px.png')}
                                                 resizeMode="contain"
@@ -494,7 +633,7 @@ const ToDoScreen = () => {
                                 {/*Left Side Button -----------------------------------------------------------------*/}
                                 <View style={styles.taskButtonViewSide}>
                                     <TouchableOpacity style={styles.btnDone}>
-                                        <TouchableOpacity style={styles.btnDoneCircle}   onPress={()=>markTask('9')}>
+                                        <TouchableOpacity style={styles.btnDoneCircle} onPress={() => markTask('9')}>
                                             <Image
                                                 source={require('../assets/icons/Done_127px.png')}
                                                 resizeMode="contain"
@@ -540,7 +679,7 @@ const ToDoScreen = () => {
                                 {/*Left Side Button -----------------------------------------------------------------*/}
                                 <View style={styles.taskButtonViewSide}>
                                     <TouchableOpacity style={styles.btnDone}>
-                                        <TouchableOpacity style={styles.btnDoneCircle} onPress={()=>markTask('10')}>
+                                        <TouchableOpacity style={styles.btnDoneCircle} onPress={() => markTask('10')}>
                                             <Image
                                                 source={require('../assets/icons/Done_127px.png')}
                                                 resizeMode="contain"
@@ -626,15 +765,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    restView:{
+    resetView: {
         // backgroundColor: '#00ffff',
         width: '100%',
-        height:'4.5%',
+        height: '4.5%',
         position: 'absolute',
         top: '24%',
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
-        left:-5,
+        left: -5,
     },
     btnReset: {
         width: 100,
@@ -755,6 +894,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgb(30,213,35)',
         justifyContent: 'center',
         alignItems: 'center',
+
 
     },
     doneLogo: {

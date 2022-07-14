@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {Image, RefreshControl, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Alert, Image, RefreshControl, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {FlatGrid} from 'react-native-super-grid';
 import {ScrollView} from 'react-native-gesture-handler';
 import * as Animatable from 'react-native-animatable';
 import WavyBackground from 'react-native-wavy-background';
 import LottieView from 'lottie-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {ALERT_TYPE, Dialog} from 'react-native-alert-notification';
+import {MONGO_USER_ZONE} from '../api/api';
 
 const wait = (timeout) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
@@ -15,10 +17,11 @@ const HomeScreen = () => {
     const [email, setEmail] = useState();
     const [name, setName] = useState();
     const [zone, setZone] = useState();
+    const [predict, setPredict] = useState();
     const [district, setDistrict] = useState();
     const [refreshing, setRefreshing] = React.useState(false);
 
-    const [Color1, setColor1] = useState("#ecd807");
+    const [Color1, setColor1] = useState('#ecd807');
 
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
@@ -26,7 +29,15 @@ const HomeScreen = () => {
         wait(1000).then(() => setRefreshing(false));
     }, []);
 
-
+    const showInfoBox = async () => {
+        Alert.alert('ddd');
+        Dialog.show({
+            type: ALERT_TYPE.WARNING,
+            title: 'Attention!',
+            textBody: 'Please Input Email or PEmail or Password',
+            button: 'Close',
+        });
+    };
     const getData = async () => {
         try {
             console.log('####');
@@ -36,10 +47,20 @@ const HomeScreen = () => {
             const district = await AsyncStorage.getItem('district');
             setName(name);
             setDistrict(district);
+            console.log('dis' + district);
             setEmail(email);
-
-            getZone()
-
+            getZone();
+            // getZone();
+            // Dialog.show({
+            //     type: ALERT_TYPE.WARNING,
+            //     title: 'Attention!',
+            //     textBody: '* Please go to Information Tab for learn how to prevent Dengue Diagnosis & about dengue\n' +
+            //         '* Go to To-Do tab and complete task for control dengue \n' +
+            //         '#(Red Zone >=1000)\n' +
+            //         '#(1000< Yellow Zone >=500)\n' +
+            //         '#(Green Zone <500)\n',
+            //     button: 'Close',
+            // });
             console.log('####' + email + ' ' + district);
 
         } catch (e) {
@@ -48,34 +69,65 @@ const HomeScreen = () => {
     };
 
     const getZone = async () => {
-        setZone("Yellow Zone")
-        setColor1("#d92323")
-        //
-        // const url = 'https://dengue-server.herokuapp.com' + '/get_zone?district=' + district;
-        // console.log('in  ' + url);
-        // try {
-        //     fetch(url, {
-        //         method: 'GET',
-        //         headers: {
-        //             Accept: 'application/json',
-        //             'Content-Type': 'application/json',
-        //         },
-        //
-        //     }).then((response) => response.json())
-        //         .then(async (response) => {
-        //
-        //
-        //         });
-        //
-        //
-        // } catch (e) {
-        //     // error reading value
-        // }
+        // setZone('Yellow Zone');
+
+        const district = await AsyncStorage.getItem('district');
+        const url = MONGO_USER_ZONE + '?district=' + district;
+        console.log('in  ' + url);
+        try {
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+
+            }).then((response) => response.json())
+                .then(async (response) => {
+                    console.log(response[0]+'----')
+                    await AsyncStorage.setItem('predict', response[0]+"");
+                    await AsyncStorage.setItem('zone', response[1]);
+                    console.log(response[0])
+                    const pred = response[0];
+                    const zone = response[1];
+
+                    if (zone == 'Red') {
+                        setColor1('#d92323');
+                    } else if (zone == 'Yellow') {
+                        setColor1('#ecd807');
+                    } else {
+                        setColor1('#00da3d');
+                    }
+
+                    setPredict(pred);
+                    setZone(zone+" Zone")
+                });
+
+
+        } catch (e) {
+            // error reading value
+        }
 
     };
 
     useEffect(() => {
+
         getData();
+        // showInfoBox();
+        setTimeout(() => {
+            Dialog.show({
+                type: ALERT_TYPE.WARNING,
+                title: 'Attention!',
+                textBody: '(*) Please go to Information Tab for learn how to prevent Dengue Diagnosis & about dengue\n' +
+                    '(*) Go to To-Do tab and complete task for control dengue \n' +
+                    '  - (Red Zone >=1000)\n' +
+                    '  - (1000< Yellow Zone >=500)\n' +
+                    '  - (Green Zone <500)\n',
+                button: 'Close',
+            });
+
+        }, 10000);
+
     }, []);
 
     return (
@@ -204,7 +256,7 @@ const HomeScreen = () => {
                             <View style={styles.homeCol0Top}>
 
                                 <View style={styles.homeCol0TxtView}>
-                                    <Text style={styles.homeCol0Txt}>This Month Cases</Text>
+                                    <Text style={styles.homeCol0Txt}>This Month Cases(Predict)</Text>
                                 </View>
 
                                 <View style={styles.homeCol0CircleView}>
@@ -219,7 +271,7 @@ const HomeScreen = () => {
                             </View>
 
                             <View style={styles.homeColMid}>
-                                <Text style={styles.homeColMidTxt}>5000</Text>
+                                <Text style={styles.homeColMidTxt}>{predict}</Text>
                             </View>
 
 
@@ -262,7 +314,7 @@ const HomeScreen = () => {
                             <View style={styles.homeCol0Top}>
 
                                 <View style={styles.homeCol0TxtView}>
-                                    <Text style={styles.homeCol0Txt}>This Year</Text>
+                                    <Text style={styles.homeCol0Txt}>Last Year</Text>
                                 </View>
 
                                 <View style={styles.homeCol0CircleView}>
@@ -555,7 +607,7 @@ const styles = StyleSheet.create({
         borderRadius: 27,
 
         // backgroundColor: '#ffffff',
-        backgroundColor: '#ecd807',
+        backgroundColor: '#16c447',
         shadowColor: '#050505',
         shadowOffset: {
             width: 0,
