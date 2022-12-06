@@ -2,7 +2,7 @@
 
   
   
-<h3 align="center" style= "margin:3"> #Dengue Prediction App </h3>
+<h1 align="center" style= "margin:3"> Dengue Prediction App </h1>
 
 <!-- <table>
 
