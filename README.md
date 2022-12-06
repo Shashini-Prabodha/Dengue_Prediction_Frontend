@@ -1,9 +1,8 @@
-﻿<div align="center">
 
-#Dengue Prediction App
+
   
   
-<!-- <h3 align="center" style= "margin:3"> Screenshots </h3> -->
+<h3 align="center" style= "margin:3"> #Dengue Prediction App </h3>
 
 <!-- <table>
 
@@ -18,7 +17,6 @@
     <td><img src="https://drive.google.com/uc?export=view&id=1iFRJQSYfqATVtT1ZQZY2tj1QLGDHYYBn" width=270 height=480></td>
   </tr>
  </table> -->
-</div>
 
 
 https://user-images.githubusercontent.com/72292990/205859647-6d910107-31d7-4c83-8863-70602bd1700e.mp4
