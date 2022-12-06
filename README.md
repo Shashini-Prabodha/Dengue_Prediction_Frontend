@@ -1,6 +1,6 @@
 ﻿<div align="center">
 
-Dengue Prediction Frontend
+#Dengue Prediction App
   
   
 <!-- <h3 align="center" style= "margin:3"> Screenshots </h3> -->
@@ -20,6 +20,6 @@ Dengue Prediction Frontend
  </table> -->
 </div>
 
-
+<div align="center">
 https://user-images.githubusercontent.com/72292990/205859647-6d910107-31d7-4c83-8863-70602bd1700e.mp4
-
+</div>
